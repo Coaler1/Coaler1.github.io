@@ -1,190 +1,193 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coaler1 Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-color: #111;
-            --card-bg: #1e1e1e;
-            --text-color: #fff;
-            --accent-color: #3b82f6;
-            --hover-bg: #2a2a2a;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            padding: 40px 20px;
-            margin: 0;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .header img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid var(--accent-color);
-            margin-bottom: 10px;
-        }
-        .header h1 { margin: 0; font-size: 1.5rem; }
-        .header p { color: #888; margin-top: 5px; }
-
-        /* Das Haupt-Grid */
-        .grid {
-            display: grid;
-            /* ANPASSUNG 1: Spalten haben jetzt eine feste maximale Breite (z.B. 180px),
-                damit justify-content: center die Gruppe von Boxen zentriert. */
-            grid-template-columns: repeat(auto-fit, minmax(150px, 180px)); 
-            gap: 15px;
-            justify-content: center; /* Zentriert die Gruppe der kleinen Boxen */
-        }
-
-        /* Standard Karten Design */
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: transform 0.2s, background-color 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            aspect-ratio: 1/1;
-            border: 1px solid #333;
-            cursor: pointer;
-        }
-
-        div.card {
-            cursor: default; 
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            background-color: var(--hover-bg);
-            border-color: var(--accent-color);
-        }
-
-        .card i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: var(--accent-color);
-        }
-
-        .card span {
-            font-weight: 500;
-        }
-
-        .card-subtext {
-            font-size: 0.85rem; 
-            color: #aaa; 
-            margin-top: 8px;
-            margin-bottom: 0;
-            line-height: 1.4;
-        }
-
-        /* SPEZIAL BOX: VOLLE BREITE */
-        .card.wide {
-            grid-column: 1 / -1; 
-            aspect-ratio: auto; 
-            align-items: center; 
-            text-align: center;
-            padding: 30px;
-        }
-
-        /* ANPASSUNG 2: Design für die Aufzählungsliste (jetzt einspaltig untereinander) */
-        .skill-list {
-            list-style: none; 
-            padding: 0;
-            margin-top: 20px;
-            width: 80%; /* Die Liste schmaler machen, damit sie im Wide-Container zentriert wirkt */
-            text-align: left;
-            /* Grid-Befehle entfernt: Keine 2 Spalten mehr */
-        }
-
-        .skill-list li {
-            background: rgba(255,255,255,0.05); 
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            color: #ddd;
-            margin-bottom: 10px; /* Abstand nach unten hinzufügen */
-        }
-
-        /* Der Media-Query ist jetzt nicht mehr nötig, da die Liste immer einspaltig ist. */
-
-        .skill-list li i {
-            font-size: 1rem; 
-            margin-bottom: 0;
-            margin-right: 10px;
-            color: var(--accent-color);
-            width: 20px; 
-        }
-
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaler1 - Lua Scripter Portfolio</title>
+    <!-- Tailwind CSS CDN for quick styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script>
+        // Tailwind Configuration for an accent color
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#3b82f6', // Accent color
+                        'dark-card': '#1a1a1a', // Dark background for cards
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Additional CSS for fine adjustments */
+        body {
+            /* Using Inter as the main font */
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+        /* Style for the separator line */
+        .separator {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #333, transparent);
+        }
+        /* Responsive Padding for smaller screens */
+        @media (max-width: 640px) {
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gray-900 text-white flex justify-center items-start pt-12 md:pt-24 antialiased">
 
-    <div class="container">
-        
-        <div class="header">
-            <img src="https://github.com/Coaler1.png" alt="Profilbild">
-            <h1>Coaler1</h1>
-            <p>Lua Scripter For-Hire</p>
-        </div>
+    <!-- Main Container with max width, centered -->
+    <div class="container w-full max-w-xl mx-auto p-4">
+        
+        <!-- HEADER / PROFILE SECTION -->
+        <header class="text-center mb-10">
+            <img 
+                src="https://github.com/Coaler1.png" 
+                alt="Coaler1 Profile Picture" 
+                class="w-24 h-24 rounded-full mx-auto mb-3 object-cover border-4 border-primary-blue shadow-lg"
+            >
+            <h1 class="text-3xl font-extrabold text-white">Coaler1</h1>
+            <p class="text-lg text-primary-blue font-medium mt-1">Lua Scripter For-Hire</p>
+            <p class="text-sm text-gray-400 mt-2">Professional game logic and system development.</p>
+        </header>
 
-        <div class="grid">
+        <!-- SEPARATOR -->
+        <div class="separator my-8"></div>
 
-            <div class="card wide">
-                <i class="fas fa-code"></i>
-                <span style="font-size: 1.2rem; margin-bottom: 5px;">What I Do</span>
-                
-                <ul class="skill-list">
-                    <li><i class="fas fa-check"></i> Gameplay systems (pets, abilities, tools, shops, quests)</li>
-                    <li><i class="fas fa-check"></i> Client-Server Logic</li>
-                    <li><i class="fas fa-check"></i> Datastores / Saving</li>
-                    <li><i class="fas fa-check"></i> UI logic & animations</li>
-                </ul>
+        <!-- SKILLS / EXPERTISE SECTION -->
+        <section class="mb-10 p-6 bg-dark-card rounded-xl shadow-2xl border border-gray-800">
+            <h2 class="text-xl font-semibold mb-4 text-gray-200 flex items-center justify-center">
+                <i class="fas fa-wrench mr-3 text-primary-blue"></i> Expertise
+            </h2>
 
-            </div>
+            <!-- Skill Tags in a responsive Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <!-- Individual Skill Tag Style -->
+                <div class="flex items-center p-3 bg-gray-800 rounded-lg transition duration-200 hover:bg-gray-700">
+                    <i class="fas fa-gamepad text-primary-blue mr-3"></i>
+                    <span>Gameplay systems (pets, shops, abilities)</span>
+                </div>
+                <div class="flex items-center p-3 bg-gray-800 rounded-lg transition duration-200 hover:bg-gray-700">
+                    <i class="fas fa-network-wired text-primary-blue mr-3"></i>
+                    <span>Client-Server Logic (Security & Performance)</span>
+                </div>
+                <div class="flex items-center p-3 bg-gray-800 rounded-lg transition duration-200 hover:bg-gray-700">
+                    <i class="fas fa-database text-primary-blue mr-3"></i>
+                    <span>Datastores / Saving (Reliable)</span>
+                </div>
+                <div class="flex items-center p-3 bg-gray-800 rounded-lg transition duration-200 hover:bg-gray-700">
+                    <i class="fas fa-palette text-primary-blue mr-3"></i>
+                    <span>UI Logic & Dynamic Animations</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- PRICING & RATES SECTION -->
+        <section class="mb-10 p-6 bg-dark-card rounded-xl shadow-2xl border border-gray-800">
+            <h2 class="text-xl font-semibold mb-4 text-gray-200 flex items-center justify-center">
+                <i class="fas fa-dollar-sign mr-3 text-primary-blue"></i> Pricing & Rates
+            </h2>
 
-            <a href="https://github.com/Coaler1" class="card" target="_blank">
-                <i class="fab fa-github"></i>
-                <span>GitHub</span>
-            </a>
+            <div class="space-y-4 text-sm text-gray-300">
+                
+                <div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                    <span class="font-medium text-white">Hourly Rate</span>
+                    <span class="text-primary-blue font-bold text-base text-right">
+                        €40 – €60 / $45 – $65 
+                        <span class="block text-xs font-normal text-gray-400 mt-1 sm:inline sm:mt-0">(~R$13,000 – R$19,000)</span>
+                    </span>
+                </div>
 
-            <a href="https://twitter.com/Coaler1Dev" class="card" target="_blank">
-                <i class="fab fa-twitter"></i>
-                <span>Twitter</span>
-                <p class="card-subtext">@Coaler1Dev</p>
-            </a>
+                <div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                    <span class="font-medium text-white">Minimum Project Fee</span>
+                    <span class="text-primary-blue font-bold text-base text-right">
+                        €50 / $55 
+                        <span class="block text-xs font-normal text-gray-400 mt-1 sm:inline sm:mt-0">(~R$16,000)</span>
+                    </span>
+                </div>
 
-            <div class="card">
-                <i class="fa-brands fa-discord"></i>
-                <span>Discord</span>
-                <p class="card-subtext">coaler1</p>
-            </div>
+                <div class="p-3 bg-gray-800 rounded-lg text-center mt-4">
+                    <span class="block text-sm text-gray-400 italic">Custom quotes are available upon detailed project analysis.</span>
+                </div>
+            </div>
+        </section>
 
-            </div>
-    </div>
+        <!-- HOW I WORK SECTION - NEU HINZUGEFÜGT -->
+        <section class="mb-10 p-6 bg-dark-card rounded-xl shadow-2xl border border-gray-800">
+            <h2 class="text-xl font-semibold mb-4 text-gray-200 flex items-center justify-center">
+                <i class="fas fa-handshake mr-3 text-primary-blue"></i> How I Work
+            </h2>
+            <ul class="space-y-3 text-sm text-gray-300">
+                <li class="flex items-start p-2 bg-gray-800 rounded-lg">
+                    <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
+                    <span>Clear communication</span>
+                </li>
+                <li class="flex items-start p-2 bg-gray-800 rounded-lg">
+                    <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
+                    <span>Fast delivery</span>
+                </li>
+                <li class="flex items-start p-2 bg-gray-800 rounded-lg">
+                    <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
+                    <span>Clean, readable, non-spaghetti code</span>
+                </li>
+                <li class="flex items-start p-2 bg-gray-800 rounded-lg">
+                    <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
+                    <span>I fix problems instead of hiding them</span>
+                </li>
+                <li class="flex items-start p-2 bg-gray-800 rounded-lg">
+                    <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
+                    <span>I won’t disappear mid-project</span>
+                </li>
+            </ul>
+        </section>
 
+        <!-- SOCIAL LINKS / CONTACT SECTION -->
+        <section class="mb-10">
+            <h2 class="text-xl font-semibold mb-6 text-gray-200 text-center">Contact & Presence</h2>
+            
+            <!-- Link Cards in a 3-column grid (1 column on mobile) -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                
+                <!-- GitHub Card -->
+                <a href="https://github.com/Coaler1" target="_blank" class="flex flex-col items-center justify-center p-6 bg-dark-card rounded-xl shadow-lg border border-gray-800 hover:bg-gray-700 hover:border-primary-blue transition duration-300 transform hover:scale-[1.03]">
+                    <i class="fab fa-github text-4xl text-primary-blue mb-2"></i>
+                    <span class="text-lg font-semibold">GitHub</span>
+                    <span class="text-xs text-gray-400">Code Repositories</span>
+                </a>
+
+                <!-- Twitter Card -->
+                <a href="https://twitter.com/Coaler1Dev" target="_blank" class="flex flex-col items-center justify-center p-6 bg-dark-card rounded-xl shadow-lg border border-gray-800 hover:bg-gray-700 hover:border-primary-blue transition duration-300 transform hover:scale-[1.03]">
+                    <i class="fab fa-twitter text-4xl text-blue-400 mb-2"></i>
+                    <span class="text-lg font-semibold">Twitter/X</span>
+                    <span class="text-xs text-gray-400">@Coaler1Dev</span>
+                </a>
+
+                <!-- Discord Card -->
+                <div class="flex flex-col items-center justify-center p-6 bg-dark-card rounded-xl shadow-lg border border-gray-800 cursor-pointer">
+                    <i class="fa-brands fa-discord text-4xl text-indigo-400 mb-2"></i>
+                    <span class="text-lg font-semibold">Discord</span>
+                    <span class="text-xs text-gray-400">coaler1</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>&copy; 2024 Coaler1. Powered by HTML & Tailwind CSS.</p>
+        </footer>
+
+    </div>
 </body>
 </html>
