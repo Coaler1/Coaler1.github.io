@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaler1 - Past Work Showcase</title>
+    <!-- Tailwind CSS CDN for quick styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script>
+        // Tailwind Configuration for an accent color
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#3b82f6', // Akzentfarbe
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Zusätzliches CSS für Feinanpassungen und Glassmorphismus */
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+        /* Glassmorphism base styling (vom Hauptportfolio übernommen) */
+        .glass-card {
+            background-color: rgba(30, 30, 30, 0.3); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        /* Hover-Effekt für die Showcase-Karten */
+        .hover-card-effect {
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .hover-card-effect:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: #3b82f6; /* primary-blue */
+        }
+    </style>
+</head>
+<!-- Hintergrund-Gradient wie im Hauptportfolio -->
+<body class="text-white flex justify-center items-start pt-12 md:pt-24 antialiased bg-gradient-to-br from-gray-950 to-gray-800 min-h-screen">
+
+    <!-- Haupt-Container für die Showcase-Seite -->
+    <div class="container w-full max-w-4xl mx-auto p-4">
+        
+        <!-- HEADER -->
+        <header class="text-center mb-10">
+            <a href="index.html" class="inline-flex items-center text-primary-blue hover:text-blue-400 transition duration-300 mb-4">
+                <i class="fas fa-arrow-left mr-2"></i> Back to Profile
+            </a>
+            <h1 class="text-4xl font-extrabold text-white mb-2">Past Work Showcase</h1>
+            <p class="text-lg text-gray-400">A selection of my professional scripting projects.</p>
+        </header>
+
+        <!-- SEPARATOR -->
+        <div class="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent my-10"></div>
+
+
+        <!-- SHOWCASE GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- BEISPIEL 1: Advanced Battle System -->
+            <div class="glass-card rounded-xl shadow-2xl border border-gray-800 p-5 hover-card-effect">
+                <h3 class="text-xl font-semibold mb-4 text-gray-200 flex items-center">
+                    <i class="fas fa-bolt mr-2 text-primary-blue"></i> Advanced Battle System
+                </h3>
+                <p class="text-sm text-gray-400 mb-4">
+                    Custom-built system for ability usage, damage calculation, and server-side validation to prevent cheating.
+                </p>
+                <!-- Responsive YouTube Embed -->
+                <div class="aspect-video w-full rounded-lg overflow-hidden shadow-xl border border-gray-700">
+                    <iframe 
+                        class="w-full h-full" 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- BEISPIEL 2: Dynamic Inventory System -->
+            <div class="glass-card rounded-xl shadow-2xl border border-gray-800 p-5 hover-card-effect">
+                <h3 class="text-xl font-semibold mb-4 text-gray-200 flex items-center">
+                    <i class="fas fa-boxes-stacked mr-2 text-primary-blue"></i> Dynamic Inventory System
+                </h3>
+                <p class="text-sm text-gray-400 mb-4">
+                    Optimized datastore implementation with robust client-server synchronization and drag-and-drop UI.
+                </p>
+                <!-- Responsive YouTube Embed -->
+                <div class="aspect-video w-full rounded-lg overflow-hidden shadow-xl border border-gray-700">
+                    <iframe 
+                        class="w-full h-full" 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            
+            <!-- BEISPIEL 3: Modular Pet System -->
+            <div class="glass-card rounded-xl shadow-2xl border border-gray-800 p-5 hover-card-effect">
+                <h3 class="text-xl font-semibold mb-4 text-gray-200 flex items-center">
+                    <i class="fas fa-paw mr-2 text-primary-blue"></i> Modular Pet System
+                </h3>
+                <p class="text-sm text-gray-400 mb-4">
+                    System for hatching, equipping, and calculating pet boosts. Easily extendable with new pet types.
+                </p>
+                <!-- Responsive YouTube Embed -->
+                <div class="aspect-video w-full rounded-lg overflow-hidden shadow-xl border border-gray-700">
+                    <iframe 
+                        class="w-full h-full" 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- BEISPIEL 4: Custom Mini-Game Logic -->
+            <div class="glass-card rounded-xl shadow-2xl border border-gray-800 p-5 hover-card-effect">
+                <h3 class="text-xl font-semibold mb-4 text-gray-200 flex items-center">
+                    <i class="fas fa-bomb mr-2 text-primary-blue"></i> Custom Mini-Game Logic
+                </h3>
+                <p class="text-sm text-gray-400 mb-4">
+                    Round-based system with lobby queuing, teleportation, result tracking, and reward distribution.
+                </p>
+                <!-- Responsive YouTube Embed -->
+                <div class="aspect-video w-full rounded-lg overflow-hidden shadow-xl border border-gray-700">
+                    <iframe 
+                        class="w-full h-full" 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            
+        </div>
+        <!-- END SHOWCASE GRID -->
+
+        <!-- FOOTER -->
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>&copy; 2024 Coaler1 Showcase. All rights reserved.</p>
+        </footer>
+
+    </div>
+</body>
+</html>
