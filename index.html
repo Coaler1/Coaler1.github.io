@@ -43,15 +43,17 @@
         .header h1 { margin: 0; font-size: 1.5rem; }
         .header p { color: #888; margin-top: 5px; }
 
+        /* Das Haupt-Grid */
         .grid {
             display: grid;
+            /* Hier definieren wir, dass Spalten mindestens 150px breit sind */
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
             gap: 15px;
+            /* Damit alles mittig zentriert ist, falls nur wenige Boxen da sind: */
+            justify-content: center; 
         }
 
-        /* WICHTIG: Hier habe ich 'cursor: pointer' hinzugefügt, damit man bei Links die Hand sieht.
-           Bei den DIVs (die keine Links sind) wird das unten überschrieben.
-        */
+        /* Standard Karten Design */
         .card {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -66,12 +68,9 @@
             text-align: center;
             aspect-ratio: 1/1;
             border: 1px solid #333;
-            cursor: pointer; /* Zeigt Hand-Cursor standardmäßig */
+            cursor: pointer;
         }
 
-        /* NEU: Eine Klasse für Karten, die KEINE Links sind. 
-           Setzt den Cursor auf "Normal" zurück.
-        */
         div.card {
             cursor: default; 
         }
@@ -92,21 +91,67 @@
             font-weight: 500;
         }
 
-        /* NEU: Style für den kleinen Text unter der Überschrift */
         .card-subtext {
             font-size: 0.85rem; 
             color: #aaa; 
-            margin-top: 8px; /* Abstand nach oben */
+            margin-top: 8px;
             margin-bottom: 0;
             line-height: 1.4;
         }
 
+        /* SPEZIAL BOX: VOLLE BREITE 
+           grid-column: 1 / -1 bedeutet: Nimm ALLES von links bis rechts ein.
+           Damit ist garantiert nichts mehr daneben.
+        */
         .card.wide {
-            grid-column: span 3;
-            aspect-ratio: auto;
-            align-items: flex-start;
-            text-align: left;
+            grid-column: 1 / -1; 
+            aspect-ratio: auto; /* Keine quadratische Form mehr */
+            align-items: center; /* Alles in der Box zentrieren */
+            text-align: center;
+            padding: 30px;
         }
+
+        /* NEU: Design für die Aufzählungsliste 
+        */
+        .skill-list {
+            list-style: none; /* Standard Punkte weg */
+            padding: 0;
+            margin-top: 20px;
+            width: 100%;
+            
+            /* Das macht die Liste zweispaltig nebeneinander */
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px;
+            text-align: left; /* Text selbst linksbündig für Lesbarkeit */
+        }
+
+        /* Wenn der Bildschirm sehr klein ist (Handy), mach die Liste einspaltig */
+        @media (max-width: 500px) {
+            .skill-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .skill-list li {
+            background: rgba(255,255,255,0.05); /* Leichter Hintergrund pro Skill */
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            color: #ddd;
+        }
+
+        /* Das Icon im Listen-Punkt */
+        .skill-list li i {
+            font-size: 1rem; /* Kleiner als die Haupt-Icons */
+            margin-bottom: 0;
+            margin-right: 10px;
+            color: var(--accent-color);
+            width: 20px; /* Damit Text bündig ist */
+        }
+
     </style>
 </head>
 <body>
@@ -123,13 +168,15 @@
 
             <div class="card wide">
                 <i class="fas fa-code"></i>
-                <span>What I Do</span>
-                <p class="card-subtext" style="text-align: left;">
-                    -> Gameplay systems (pets, abilities, tools, shops, quests)
-                    -> Clean client–server structure (ModuleScripts)
-                    -> Datastores & save systems
-                    -> UI logic & animations
-                </p>
+                <span style="font-size: 1.2rem; margin-bottom: 5px;">What I Do</span>
+                
+                <ul class="skill-list">
+                    <li><i class="fas fa-check"></i> Gameplay systems (pets, abilities, tools, shops, quests)</li>
+                    <li><i class="fas fa-check"></i> Client-Server Logic</li>
+                    <li><i class="fas fa-check"></i> Datastores / Saving</li>
+                    <li><i class="fas fa-check"></i> UI logic & animations</li>
+                </ul>
+
             </div>
 
             <a href="https://github.com/Coaler1" class="card" target="_blank">
@@ -149,7 +196,7 @@
                 <p class="card-subtext">coaler1</p>
             </div>
 
-        </div>
+            </div>
     </div>
 
 </body>
