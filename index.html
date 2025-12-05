@@ -16,7 +16,6 @@
                 extend: {
                     colors: {
                         'primary-blue': '#3b82f6', // Accent color
-                        'dark-card': '#1a1a1a', // Dark background for cards
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -28,7 +27,7 @@
     <style>
         /* Additional CSS for fine adjustments */
         body {
-            /* Using Inter as the main font */
+            /* Using Inter as the main font and ensuring gradient covers the screen */
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
         }
@@ -43,9 +42,29 @@
                 padding: 1rem;
             }
         }
+        /* Glassmorphism base styling */
+        .glass-card {
+            background-color: rgba(30, 30, 30, 0.3); /* Semi-transparent dark background */
+            backdrop-filter: blur(8px); /* Blur effect */
+            -webkit-backdrop-filter: blur(8px); /* Safari support */
+        }
+
+        /* Reusable class for consistent hover effect across cards (links and divs) */
+        .hover-card-effect {
+            transition: transform 0.3s, border-color 0.3s, background-color 0.3s;
+            cursor: default; /* Default cursor for non-link sections */
+        }
+        a.hover-card-effect {
+            cursor: pointer; /* Pointer for actual links */
+        }
+        .hover-card-effect:hover {
+            transform: translateY(-4px) scale(1.01); /* Subtle lift */
+            border-color: var(--primary-blue);
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-white flex justify-center items-start pt-12 md:pt-24 antialiased">
+<!-- Body now uses a subtle black/dark gray gradient -->
+<body class="text-white flex justify-center items-start pt-12 md:pt-24 antialiased bg-gradient-to-br from-gray-950 to-gray-800 min-h-screen">
 
     <!-- Main Container with max width, centered -->
     <div class="container w-full max-w-xl mx-auto p-4">
@@ -65,43 +84,43 @@
         <!-- SEPARATOR -->
         <div class="separator my-8"></div>
 
-        <!-- SKILLS / EXPERTISE SECTION -->
-        <section class="mb-10 p-6 bg-dark-card rounded-xl shadow-2xl border border-gray-800">
+        <!-- SKILLS / EXPERTISE SECTION - Glassmorphism & Hover Effect added -->
+        <section class="mb-10 p-6 glass-card rounded-xl shadow-2xl border border-gray-800 hover-card-effect">
             <h2 class="text-xl font-semibold mb-4 text-gray-200 flex items-center justify-center">
                 <i class="fas fa-wrench mr-3 text-primary-blue"></i> Expertise
             </h2>
 
-            <!-- Skill Tags in a responsive Grid -->
+            <!-- Skill Tags use slightly more opaque background for readability -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                 <!-- Individual Skill Tag Style -->
-                <div class="flex items-center p-3 bg-gray-800 rounded-lg transition duration-200 hover:bg-gray-700">
+                <div class="flex items-center p-3 bg-gray-800/50 rounded-lg transition duration-200 hover:bg-gray-700/70">
                     <i class="fas fa-gamepad text-primary-blue mr-3"></i>
                     <span>Gameplay systems (pets, shops, abilities)</span>
                 </div>
-                <div class="flex items-center p-3 bg-gray-800 rounded-lg transition duration-200 hover:bg-gray-700">
+                <div class="flex items-center p-3 bg-gray-800/50 rounded-lg transition duration-200 hover:bg-gray-700/70">
                     <i class="fas fa-network-wired text-primary-blue mr-3"></i>
                     <span>Client-Server Logic (Security & Performance)</span>
                 </div>
-                <div class="flex items-center p-3 bg-gray-800 rounded-lg transition duration-200 hover:bg-gray-700">
+                <div class="flex items-center p-3 bg-gray-800/50 rounded-lg transition duration-200 hover:bg-gray-700/70">
                     <i class="fas fa-database text-primary-blue mr-3"></i>
                     <span>Datastores / Saving (Reliable)</span>
                 </div>
-                <div class="flex items-center p-3 bg-gray-800 rounded-lg transition duration-200 hover:bg-gray-700">
+                <div class="flex items-center p-3 bg-gray-800/50 rounded-lg transition duration-200 hover:bg-gray-700/70">
                     <i class="fas fa-palette text-primary-blue mr-3"></i>
                     <span>UI Logic & Dynamic Animations</span>
                 </div>
             </div>
         </section>
         
-        <!-- PRICING & RATES SECTION -->
-        <section class="mb-10 p-6 bg-dark-card rounded-xl shadow-2xl border border-gray-800">
+        <!-- PRICING & RATES SECTION - Glassmorphism & Hover Effect added -->
+        <section class="mb-10 p-6 glass-card rounded-xl shadow-2xl border border-gray-800 hover-card-effect">
             <h2 class="text-xl font-semibold mb-4 text-gray-200 flex items-center justify-center">
                 <i class="fas fa-dollar-sign mr-3 text-primary-blue"></i> Pricing & Rates
             </h2>
 
             <div class="space-y-4 text-sm text-gray-300">
                 
-                <div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                <div class="flex justify-between items-center p-3 bg-gray-800/50 rounded-lg">
                     <span class="font-medium text-white">Hourly Rate</span>
                     <span class="text-primary-blue font-bold text-base text-right">
                         €40 – €60 / $45 – $65 
@@ -109,7 +128,7 @@
                     </span>
                 </div>
 
-                <div class="flex justify-between items-center p-3 bg-gray-800 rounded-lg">
+                <div class="flex justify-between items-center p-3 bg-gray-800/50 rounded-lg">
                     <span class="font-medium text-white">Minimum Project Fee</span>
                     <span class="text-primary-blue font-bold text-base text-right">
                         €50 / $55 
@@ -117,35 +136,35 @@
                     </span>
                 </div>
 
-                <div class="p-3 bg-gray-800 rounded-lg text-center mt-4">
+                <div class="p-3 bg-gray-800/50 rounded-lg text-center mt-4">
                     <span class="block text-sm text-gray-400 italic">Custom quotes are available upon detailed project analysis.</span>
                 </div>
             </div>
         </section>
 
-        <!-- HOW I WORK SECTION - NEU HINZUGEFÜGT -->
-        <section class="mb-10 p-6 bg-dark-card rounded-xl shadow-2xl border border-gray-800">
+        <!-- HOW I WORK SECTION - Glassmorphism & Hover Effect added -->
+        <section class="mb-10 p-6 glass-card rounded-xl shadow-2xl border border-gray-800 hover-card-effect">
             <h2 class="text-xl font-semibold mb-4 text-gray-200 flex items-center justify-center">
                 <i class="fas fa-handshake mr-3 text-primary-blue"></i> How I Work
             </h2>
             <ul class="space-y-3 text-sm text-gray-300">
-                <li class="flex items-start p-2 bg-gray-800 rounded-lg">
+                <li class="flex items-start p-2 bg-gray-800/50 rounded-lg">
                     <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
                     <span>Clear communication</span>
                 </li>
-                <li class="flex items-start p-2 bg-gray-800 rounded-lg">
+                <li class="flex items-start p-2 bg-gray-800/50 rounded-lg">
                     <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
                     <span>Fast delivery</span>
                 </li>
-                <li class="flex items-start p-2 bg-gray-800 rounded-lg">
+                <li class="flex items-start p-2 bg-gray-800/50 rounded-lg">
                     <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
                     <span>Clean, readable, non-spaghetti code</span>
                 </li>
-                <li class="flex items-start p-2 bg-gray-800 rounded-lg">
+                <li class="flex items-start p-2 bg-gray-800/50 rounded-lg">
                     <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
                     <span>I fix problems instead of hiding them</span>
                 </li>
-                <li class="flex items-start p-2 bg-gray-800 rounded-lg">
+                <li class="flex items-start p-2 bg-gray-800/50 rounded-lg">
                     <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
                     <span>I won’t disappear mid-project</span>
                 </li>
@@ -159,22 +178,22 @@
             <!-- Link Cards in a 3-column grid (1 column on mobile) -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 
-                <!-- GitHub Card -->
-                <a href="https://github.com/Coaler1" target="_blank" class="flex flex-col items-center justify-center p-6 bg-dark-card rounded-xl shadow-lg border border-gray-800 hover:bg-gray-700 hover:border-primary-blue transition duration-300 transform hover:scale-[1.03]">
+                <!-- GitHub Card - Glassmorphism & Hover Effect added -->
+                <a href="https://github.com/Coaler1" target="_blank" class="flex flex-col items-center justify-center p-6 glass-card rounded-xl shadow-lg border border-gray-800 hover:bg-gray-700/70 hover-card-effect">
                     <i class="fab fa-github text-4xl text-primary-blue mb-2"></i>
                     <span class="text-lg font-semibold">GitHub</span>
                     <span class="text-xs text-gray-400">Code Repositories</span>
                 </a>
 
-                <!-- Twitter Card -->
-                <a href="https://twitter.com/Coaler1Dev" target="_blank" class="flex flex-col items-center justify-center p-6 bg-dark-card rounded-xl shadow-lg border border-gray-800 hover:bg-gray-700 hover:border-primary-blue transition duration-300 transform hover:scale-[1.03]">
+                <!-- Twitter Card - Glassmorphism & Hover Effect added -->
+                <a href="https://twitter.com/Coaler1Dev" target="_blank" class="flex flex-col items-center justify-center p-6 glass-card rounded-xl shadow-lg border border-gray-800 hover:bg-gray-700/70 hover-card-effect">
                     <i class="fab fa-twitter text-4xl text-blue-400 mb-2"></i>
-                    <span class="text-lg font-semibold">Twitter/X</span>
+                    <span class="text-lg font-semibold">Twitter</span>
                     <span class="text-xs text-gray-400">@Coaler1Dev</span>
                 </a>
 
-                <!-- Discord Card -->
-                <div class="flex flex-col items-center justify-center p-6 bg-dark-card rounded-xl shadow-lg border border-gray-800 cursor-pointer">
+                <!-- Discord Card - Glassmorphism & Hover Effect added -->
+                <div class="flex flex-col items-center justify-center p-6 glass-card rounded-xl shadow-lg border border-gray-800 hover:bg-gray-700/70 hover-card-effect cursor-pointer">
                     <i class="fa-brands fa-discord text-4xl text-indigo-400 mb-2"></i>
                     <span class="text-lg font-semibold">Discord</span>
                     <span class="text-xs text-gray-400">coaler1</span>
@@ -182,6 +201,28 @@
 
             </div>
         </section>
+        
+        <!-- NEW: DETAILS FRAME -->
+        <section class="mb-10 p-6 glass-card rounded-xl shadow-2xl border border-gray-800 hover-card-effect">
+            <h2 class="text-xl font-semibold mb-4 text-gray-200 flex items-center justify-center">
+                <i class="fas fa-info-circle mr-3 text-primary-blue"></i> Details
+            </h2>
+            
+            <div class="grid grid-cols-2 gap-4 text-center">
+                <!-- Payment Type -->
+                <div>
+                    <span class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Payment Type</span>
+                    <span class="block text-lg font-bold text-white">Partial up-front</span>
+                </div>
+                
+                <!-- Contact Handle -->
+                <div>
+                    <span class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Contact Handle</span>
+                    <span class="block text-lg font-bold text-primary-blue">@coaler1</span>
+                </div>
+            </div>
+        </section>
+
 
         <!-- FOOTER -->
         <footer class="text-center mt-12 text-gray-500 text-sm">
