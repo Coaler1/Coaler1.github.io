@@ -10,7 +10,7 @@
             --bg-color: #111;
             --card-bg: #1e1e1e;
             --text-color: #fff;
-            --accent-color: #3b82f6; /* Blau, kannst du ändern */
+            --accent-color: #3b82f6;
             --hover-bg: #2a2a2a;
         }
 
@@ -29,7 +29,6 @@
             width: 100%;
         }
 
-        /* Das Profil oben */
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -44,15 +43,15 @@
         .header h1 { margin: 0; font-size: 1.5rem; }
         .header p { color: #888; margin-top: 5px; }
 
-        /* DAS GRID SYSTEM - Hier passiert die Magie */
         .grid {
             display: grid;
-            /* Automatische Spalten: Passt sich Handy/PC automatisch an */
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
             gap: 15px;
         }
 
-        /* Die einzelnen Karten */
+        /* WICHTIG: Hier habe ich 'cursor: pointer' hinzugefügt, damit man bei Links die Hand sieht.
+           Bei den DIVs (die keine Links sind) wird das unten überschrieben.
+        */
         .card {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -65,8 +64,16 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            aspect-ratio: 1/1; /* Macht die Boxen quadratisch */
+            aspect-ratio: 1/1;
             border: 1px solid #333;
+            cursor: pointer; /* Zeigt Hand-Cursor standardmäßig */
+        }
+
+        /* NEU: Eine Klasse für Karten, die KEINE Links sind. 
+           Setzt den Cursor auf "Normal" zurück.
+        */
+        div.card {
+            cursor: default; 
         }
 
         .card:hover {
@@ -85,7 +92,15 @@
             font-weight: 500;
         }
 
-        /* Große Box für besondere Dinge (optional) */
+        /* NEU: Style für den kleinen Text unter der Überschrift */
+        .card-subtext {
+            font-size: 0.85rem; 
+            color: #aaa; 
+            margin-top: 8px; /* Abstand nach oben */
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+
         .card.wide {
             grid-column: span 2;
             aspect-ratio: auto;
@@ -114,24 +129,24 @@
             <a href="https://twitter.com/Coaler1Dev" class="card" target="_blank">
                 <i class="fab fa-twitter"></i>
                 <span>Twitter</span>
+                <p class="card-subtext">@Coaler1Dev</p>
             </a>
 
-            <a href="" class="card">
+            <div class="card">
                 <i class="fa-brands fa-discord"></i>
-                <span>Contact</span>
-                <p style="font-size: 0.8rem; color: #aaa; margin-top: 5px;">
-                    coaler1
-            </a>
+                <span>Discord</span>
+                <p class="card-subtext">coaler1</p>
+            </div>
 
             <a href="#" class="card wide">
                 <i class="fas fa-code"></i>
                 <span>Aktuelles Projekt</span>
-                <p style="font-size: 0.8rem; color: #aaa; margin-top: 5px;">
+                <p class="card-subtext" style="text-align: left;">
                     Ich baue gerade eine App mit React und Node.js...
                 </p>
             </a>
 
-            </div>
+        </div>
     </div>
 
 </body>
