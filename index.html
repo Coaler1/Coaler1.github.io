@@ -1,203 +1,190 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coaler1 Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-color: #111;
-            --card-bg: #1e1e1e;
-            --text-color: #fff;
-            --accent-color: #3b82f6;
-            --hover-bg: #2a2a2a;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaler1 Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #111;
+            --card-bg: #1e1e1e;
+            --text-color: #fff;
+            --accent-color: #3b82f6;
+            --hover-bg: #2a2a2a;
+        }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            padding: 40px 20px;
-            margin: 0;
-        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
 
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
 
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .header img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid var(--accent-color);
-            margin-bottom: 10px;
-        }
-        .header h1 { margin: 0; font-size: 1.5rem; }
-        .header p { color: #888; margin-top: 5px; }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 10px;
+        }
+        .header h1 { margin: 0; font-size: 1.5rem; }
+        .header p { color: #888; margin-top: 5px; }
 
-        /* Das Haupt-Grid */
-        .grid {
-            display: grid;
-            /* Hier definieren wir, dass Spalten mindestens 150px breit sind */
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-            gap: 15px;
-            /* Damit alles mittig zentriert ist, falls nur wenige Boxen da sind: */
-            justify-content: center; 
-        }
+        /* Das Haupt-Grid */
+        .grid {
+            display: grid;
+            /* ANPASSUNG 1: Spalten haben jetzt eine feste maximale Breite (z.B. 180px),
+                damit justify-content: center die Gruppe von Boxen zentriert. */
+            grid-template-columns: repeat(auto-fit, minmax(150px, 180px)); 
+            gap: 15px;
+            justify-content: center; /* Zentriert die Gruppe der kleinen Boxen */
+        }
 
-        /* Standard Karten Design */
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: transform 0.2s, background-color 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            aspect-ratio: 1/1;
-            border: 1px solid #333;
-            cursor: pointer;
-        }
+        /* Standard Karten Design */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: transform 0.2s, background-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            aspect-ratio: 1/1;
+            border: 1px solid #333;
+            cursor: pointer;
+        }
 
-        div.card {
-            cursor: default; 
-        }
+        div.card {
+            cursor: default; 
+        }
 
-        .card:hover {
-            transform: translateY(-5px);
-            background-color: var(--hover-bg);
-            border-color: var(--accent-color);
-        }
+        .card:hover {
+            transform: translateY(-5px);
+            background-color: var(--hover-bg);
+            border-color: var(--accent-color);
+        }
 
-        .card i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: var(--accent-color);
-        }
+        .card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
 
-        .card span {
-            font-weight: 500;
-        }
+        .card span {
+            font-weight: 500;
+        }
 
-        .card-subtext {
-            font-size: 0.85rem; 
-            color: #aaa; 
-            margin-top: 8px;
-            margin-bottom: 0;
-            line-height: 1.4;
-        }
+        .card-subtext {
+            font-size: 0.85rem; 
+            color: #aaa; 
+            margin-top: 8px;
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
 
-        /* SPEZIAL BOX: VOLLE BREITE 
-           grid-column: 1 / -1 bedeutet: Nimm ALLES von links bis rechts ein.
-           Damit ist garantiert nichts mehr daneben.
-        */
-        .card.wide {
-            grid-column: 1 / -1; 
-            aspect-ratio: auto; /* Keine quadratische Form mehr */
-            align-items: center; /* Alles in der Box zentrieren */
-            text-align: center;
-            padding: 30px;
-        }
+        /* SPEZIAL BOX: VOLLE BREITE */
+        .card.wide {
+            grid-column: 1 / -1; 
+            aspect-ratio: auto; 
+            align-items: center; 
+            text-align: center;
+            padding: 30px;
+        }
 
-        /* NEU: Design für die Aufzählungsliste 
-        */
-        .skill-list {
-            list-style: none; /* Standard Punkte weg */
-            padding: 0;
-            margin-top: 20px;
-            width: 100%;
-            
-            /* Das macht die Liste zweispaltig nebeneinander */
-            display: grid;
-            grid-template-columns: 1fr 1fr; 
-            gap: 10px;
-            text-align: left; /* Text selbst linksbündig für Lesbarkeit */
-        }
+        /* ANPASSUNG 2: Design für die Aufzählungsliste (jetzt einspaltig untereinander) */
+        .skill-list {
+            list-style: none; 
+            padding: 0;
+            margin-top: 20px;
+            width: 80%; /* Die Liste schmaler machen, damit sie im Wide-Container zentriert wirkt */
+            text-align: left;
+            /* Grid-Befehle entfernt: Keine 2 Spalten mehr */
+        }
 
-        /* Wenn der Bildschirm sehr klein ist (Handy), mach die Liste einspaltig */
-        @media (max-width: 500px) {
-            .skill-list {
-                grid-template-columns: 1fr;
-            }
-        }
+        .skill-list li {
+            background: rgba(255,255,255,0.05); 
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            color: #ddd;
+            margin-bottom: 10px; /* Abstand nach unten hinzufügen */
+        }
 
-        .skill-list li {
-            background: rgba(255,255,255,0.05); /* Leichter Hintergrund pro Skill */
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            color: #ddd;
-        }
+        /* Der Media-Query ist jetzt nicht mehr nötig, da die Liste immer einspaltig ist. */
 
-        /* Das Icon im Listen-Punkt */
-        .skill-list li i {
-            font-size: 1rem; /* Kleiner als die Haupt-Icons */
-            margin-bottom: 0;
-            margin-right: 10px;
-            color: var(--accent-color);
-            width: 20px; /* Damit Text bündig ist */
-        }
+        .skill-list li i {
+            font-size: 1rem; 
+            margin-bottom: 0;
+            margin-right: 10px;
+            color: var(--accent-color);
+            width: 20px; 
+        }
 
-    </style>
+    </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <div class="header">
-            <img src="https://github.com/Coaler1.png" alt="Profilbild">
-            <h1>Coaler1</h1>
-            <p>Lua Scripter For-Hire</p>
-        </div>
+    <div class="container">
+        
+        <div class="header">
+            <img src="https://github.com/Coaler1.png" alt="Profilbild">
+            <h1>Coaler1</h1>
+            <p>Lua Scripter For-Hire</p>
+        </div>
 
-        <div class="grid">
+        <div class="grid">
 
-            <div class="card wide">
-                <i class="fas fa-code"></i>
-                <span style="font-size: 1.2rem; margin-bottom: 5px;">What I Do</span>
-                
-                <ul class="skill-list">
-                    <li><i class="fas fa-check"></i> Gameplay systems (pets, abilities, tools, shops, quests)</li>
-                    <li><i class="fas fa-check"></i> Client-Server Logic</li>
-                    <li><i class="fas fa-check"></i> Datastores / Saving</li>
-                    <li><i class="fas fa-check"></i> UI logic & animations</li>
-                </ul>
+            <div class="card wide">
+                <i class="fas fa-code"></i>
+                <span style="font-size: 1.2rem; margin-bottom: 5px;">What I Do</span>
+                
+                <ul class="skill-list">
+                    <li><i class="fas fa-check"></i> Gameplay systems (pets, abilities, tools, shops, quests)</li>
+                    <li><i class="fas fa-check"></i> Client-Server Logic</li>
+                    <li><i class="fas fa-check"></i> Datastores / Saving</li>
+                    <li><i class="fas fa-check"></i> UI logic & animations</li>
+                </ul>
 
-            </div>
+            </div>
 
-            <a href="https://github.com/Coaler1" class="card" target="_blank">
-                <i class="fab fa-github"></i>
-                <span>GitHub</span>
-            </a>
+            <a href="https://github.com/Coaler1" class="card" target="_blank">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+            </a>
 
-            <a href="https://twitter.com/Coaler1Dev" class="card" target="_blank">
-                <i class="fab fa-twitter"></i>
-                <span>Twitter</span>
-                <p class="card-subtext">@Coaler1Dev</p>
-            </a>
+            <a href="https://twitter.com/Coaler1Dev" class="card" target="_blank">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+                <p class="card-subtext">@Coaler1Dev</p>
+            </a>
 
-            <div class="card">
-                <i class="fa-brands fa-discord"></i>
-                <span>Discord</span>
-                <p class="card-subtext">coaler1</p>
-            </div>
+            <div class="card">
+                <i class="fa-brands fa-discord"></i>
+                <span>Discord</span>
+                <p class="card-subtext">coaler1</p>
+            </div>
 
-            </div>
-    </div>
+            </div>
+    </div>
 
 </body>
 </html>
