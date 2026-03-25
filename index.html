@@ -3,236 +3,421 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coaler1 - Lua Scripter Portfolio</title>
-    <!-- Tailwind CSS CDN for quick styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <script>
-        // Tailwind Configuration for an accent color
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-blue': '#3b82f6', // Accent color
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Coaler1 — Lua Scripter Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Additional CSS for fine adjustments */
-        body {
-            /* Using Inter as the main font and ensuring gradient covers the screen */
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+        :root {
+            --bg: #06060c;
+            --bg-card: rgba(14, 14, 26, 0.65);
+            --bg-card-hover: rgba(22, 22, 44, 0.85);
+            --accent: #6c5ce7;
+            --teal: #00cec9;
+            --pink: #fd79a8;
+            --gold: #fdcb6e;
+            --green: #55efc4;
+            --lilac: #a29bfe;
+            --grad-main: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            --grad-hot: linear-gradient(135deg, #fd79a8, #e84393);
+            --grad-teal: linear-gradient(135deg, #00cec9, #00b894);
+            --grad-gold: linear-gradient(135deg, #fdcb6e, #e17055);
+            --glow: rgba(108, 92, 231, 0.3);
+            --text: #eaeaf5;
+            --text2: #8888a8;
+            --text3: #505068;
+            --brd: rgba(255,255,255,0.06);
+            --brd-h: rgba(108,92,231,0.4);
         }
-        /* Style for the separator line */
-        .separator {
-            height: 1px;
-            background: linear-gradient(to right, transparent, #333, transparent);
-        }
-        /* Responsive Padding for smaller screens */
-        @media (max-width: 640px) {
-            .container {
-                padding: 1rem;
-            }
-        }
-        /* Glassmorphism base styling */
-        .glass-card {
-            background-color: rgba(30, 30, 30, 0.3); /* Semi-transparent dark background */
-            backdrop-filter: blur(8px); /* Blur effect */
-            -webkit-backdrop-filter: blur(8px); /* Safari support */
-        }
-
-        /* Reusable class for consistent hover effect across cards (links and divs) */
-        .hover-card-effect {
-            transition: transform 0.3s, border-color 0.3s, background-color 0.3s;
-            cursor: default; /* Default cursor for non-link sections */
-        }
-        a.hover-card-effect {
-            cursor: pointer; /* Pointer for actual links */
-        }
-        .hover-card-effect:hover {
-            transform: translateY(-4px) scale(1.01); /* Subtle lift */
-            border-color: var(--primary-blue);
+ 
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+ 
+        .bg-grid { position: fixed; inset: 0; z-index: 0; background-image: linear-gradient(rgba(108,92,231,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(108,92,231,0.035) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black 20%, transparent 100%); }
+        .bg-orb { position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; }
+        .bg-orb-1 { top: -120px; left: 20%; width: 500px; height: 500px; background: rgba(108,92,231,0.15); animation: f1 8s ease-in-out infinite alternate; }
+        .bg-orb-2 { top: 100px; right: 10%; width: 400px; height: 400px; background: rgba(0,206,201,0.1); animation: f2 10s ease-in-out infinite alternate; }
+        .bg-orb-3 { bottom: 20%; left: 5%; width: 350px; height: 350px; background: rgba(253,121,168,0.08); animation: f1 12s ease-in-out infinite alternate-reverse; }
+        @keyframes f1 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(30px,-20px) scale(1.1)} }
+        @keyframes f2 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(-20px,30px) scale(1.05)} }
+ 
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; background: rgba(6,6,12,0.8); backdrop-filter: blur(24px); border-bottom: 1px solid var(--brd); }
+        .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; color: var(--text); text-decoration: none; }
+        .nav-brand img { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--accent); }
+        .nav-brand span { background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-links a { color: var(--text2); text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--teal); }
+ 
+        main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+ 
+        /* HERO */
+        .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 130px; padding-bottom: 50px; }
+        .hero-av { width: 100px; height: 100px; border-radius: 50%; padding: 3px; background: var(--grad-main); margin-bottom: 1.5rem; animation: fadeUp 0.7s ease-out; box-shadow: 0 0 50px var(--glow); }
+        .hero-av img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(108,92,231,0.1); border: 1px solid rgba(108,92,231,0.25); border-radius: 100px; padding: 5px 16px; font-size: 0.72rem; font-weight: 700; color: var(--teal); letter-spacing: 0.07em; text-transform: uppercase; animation: fadeUp 0.7s ease-out 0.1s both; }
+        .hero-badge .dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: blink 2s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+        .hero h1 { font-size: 3.4rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; margin: 0.8rem 0 0.5rem; animation: fadeUp 0.7s ease-out 0.2s both; }
+        .gt { background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-sub { font-size: 1.05rem; color: var(--text2); max-width: 520px; line-height: 1.65; margin-bottom: 2rem; animation: fadeUp 0.7s ease-out 0.3s both; }
+        .hero-sub strong { color: var(--teal); font-weight: 600; }
+        .hero-actions { display: flex; gap: 1rem; animation: fadeUp 0.7s ease-out 0.4s both; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 12px; font-family: 'Outfit'; font-weight: 700; font-size: 0.88rem; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: var(--grad-main); color: #fff; box-shadow: 0 4px 24px var(--glow); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 36px var(--glow); }
+        .btn-ghost { background: transparent; color: var(--text2); border: 1px solid rgba(255,255,255,0.08); }
+        .btn-ghost:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-3px); }
+ 
+        /* STATS BAR */
+        .stats-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--brd); border-radius: 18px; overflow: hidden; margin-bottom: 80px; animation: fadeUp 0.7s ease-out 0.5s both; }
+        .stat-item { background: var(--bg-card); padding: 1.6rem 1rem; text-align: center; transition: background 0.3s; }
+        .stat-item:hover { background: var(--bg-card-hover); }
+        .stat-num { font-size: 1.9rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; letter-spacing: -0.02em; }
+        .stat-lbl { font-size: 0.65rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; font-weight: 700; }
+        .live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: middle; animation: blink 2s infinite; }
+ 
+        .c-purple { color: var(--lilac); }
+        .c-teal { color: var(--teal); }
+        .c-pink { color: var(--pink); }
+        .c-gold { color: var(--gold); }
+        .c-green { color: var(--green); }
+ 
+        /* SECTIONS */
+        .section { margin-bottom: 80px; }
+        .section-label { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.5rem; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section-title { font-size: 2.2rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+        .section-desc { color: var(--text2); font-size: 0.92rem; margin-bottom: 2rem; max-width: 560px; }
+ 
+        /* GAME CARDS */
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+        .game-card { background: var(--bg-card); border: 1px solid var(--brd); border-radius: 18px; overflow: hidden; transition: all 0.4s; text-decoration: none; color: inherit; display: block; }
+        .game-card:hover { transform: translateY(-5px); border-color: var(--brd-h); box-shadow: 0 16px 48px rgba(108,92,231,0.12); }
+        .game-thumb-wrap { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: rgba(20,20,40,0.5); }
+        .game-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+        .game-card:hover .game-thumb-wrap img { transform: scale(1.05); }
+        .game-live-badge { position: absolute; top: 10px; right: 10px; display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); border: 1px solid rgba(85,239,196,0.3); border-radius: 8px; padding: 4px 10px; font-size: 0.65rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.06em; }
+        .game-live-badge .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 1.5s infinite; }
+        .game-info { padding: 1.3rem 1.4rem 1.5rem; }
+        .game-tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.6rem; }
+        .game-tag.purple { background: rgba(108,92,231,0.15); color: var(--lilac); border: 1px solid rgba(108,92,231,0.25); }
+        .game-tag.teal { background: rgba(0,206,201,0.12); color: var(--teal); border: 1px solid rgba(0,206,201,0.2); }
+        .game-tag.pink { background: rgba(253,121,168,0.12); color: var(--pink); border: 1px solid rgba(253,121,168,0.2); }
+        .game-tag.gold { background: rgba(253,203,110,0.12); color: var(--gold); border: 1px solid rgba(253,203,110,0.2); }
+        .game-info h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .game-info .game-desc { font-size: 0.78rem; color: var(--text2); line-height: 1.55; margin-bottom: 1rem; }
+        .game-stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+        .game-stat { text-align: center; padding: 0.55rem 0.3rem; background: rgba(255,255,255,0.025); border-radius: 10px; border: 1px solid var(--brd); }
+        .game-stat-val { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; font-weight: 700; }
+        .game-stat-lbl { font-size: 0.55rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+ 
+        .showcase-cta { display: block; text-align: center; padding: 1.2rem; margin-top: 1.5rem; border-radius: 14px; background: var(--grad-main); color: #fff; font-weight: 800; font-size: 1rem; text-decoration: none; letter-spacing: 0.02em; transition: all 0.3s; box-shadow: 0 4px 20px var(--glow); }
+        .showcase-cta:hover { transform: translateY(-3px); box-shadow: 0 8px 32px var(--glow); }
+ 
+        /* SKILLS */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+        .skill-card { background: var(--bg-card); border: 1px solid var(--brd); border-radius: 16px; padding: 1.5rem; transition: all 0.3s; }
+        .skill-card:hover { border-color: var(--brd-h); transform: translateY(-4px); }
+        .skill-icon { width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 1.15rem; }
+        .skill-icon.purple { background: rgba(108,92,231,0.12); color: var(--lilac); }
+        .skill-icon.teal { background: rgba(0,206,201,0.12); color: var(--teal); }
+        .skill-icon.pink { background: rgba(253,121,168,0.12); color: var(--pink); }
+        .skill-icon.gold { background: rgba(253,203,110,0.12); color: var(--gold); }
+        .skill-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .skill-card p { font-size: 0.8rem; color: var(--text2); line-height: 1.5; }
+ 
+        /* PRICING */
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+        .price-card { background: var(--bg-card); border: 1px solid var(--brd); border-radius: 18px; padding: 2rem 1.5rem; text-align: center; transition: all 0.3s; position: relative; }
+        .price-card:hover { border-color: var(--brd-h); transform: translateY(-4px); }
+        .price-card.featured { border-color: var(--accent); box-shadow: 0 0 50px var(--glow); }
+        .price-card.featured::before { content: 'POPULAR'; position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: var(--grad-main); color: #fff; font-size: 0.58rem; font-weight: 800; padding: 4px 16px; border-radius: 100px; letter-spacing: 0.12em; }
+        .price-label { font-size: 0.72rem; color: var(--text3); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.8rem; }
+        .price-amount { font-size: 2.4rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.3rem; }
+        .price-sub { font-size: 0.72rem; color: var(--text3); }
+ 
+        /* WORKFLOW */
+        .workflow-list { display: flex; flex-direction: column; gap: 0.7rem; }
+        .workflow-item { display: flex; align-items: center; gap: 1rem; background: var(--bg-card); border: 1px solid var(--brd); border-radius: 14px; padding: 1rem 1.5rem; transition: all 0.3s; }
+        .workflow-item:hover { border-color: var(--brd-h); transform: translateX(6px); }
+        .workflow-num { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 700; flex-shrink: 0; }
+        .workflow-num.c1 { background: rgba(108,92,231,0.15); color: var(--lilac); }
+        .workflow-num.c2 { background: rgba(0,206,201,0.12); color: var(--teal); }
+        .workflow-num.c3 { background: rgba(253,121,168,0.12); color: var(--pink); }
+        .workflow-num.c4 { background: rgba(253,203,110,0.12); color: var(--gold); }
+        .workflow-num.c5 { background: rgba(85,239,196,0.12); color: var(--green); }
+        .workflow-item span { font-size: 0.88rem; font-weight: 500; }
+ 
+        /* SOCIAL */
+        .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .social-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 2rem 1rem; background: var(--bg-card); border: 1px solid var(--brd); border-radius: 18px; text-decoration: none; color: var(--text); transition: all 0.3s; }
+        .social-card:hover { transform: translateY(-5px); }
+        .social-card:nth-child(1):hover { border-color: rgba(162,155,254,0.4); box-shadow: 0 8px 30px rgba(108,92,231,0.15); }
+        .social-card:nth-child(2):hover { border-color: rgba(29,155,240,0.4); box-shadow: 0 8px 30px rgba(29,155,240,0.12); }
+        .social-card:nth-child(3):hover { border-color: rgba(88,101,242,0.4); box-shadow: 0 8px 30px rgba(88,101,242,0.12); }
+        .social-card i { font-size: 2rem; }
+        .social-name { font-weight: 700; font-size: 0.92rem; }
+        .social-handle { font-size: 0.68rem; color: var(--text3); }
+ 
+        .details-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--brd); border-radius: 16px; overflow: hidden; margin-top: 2rem; }
+        .detail-item { background: var(--bg-card); padding: 1.5rem; text-align: center; }
+        .detail-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); font-weight: 700; margin-bottom: 0.3rem; }
+        .detail-value { font-size: 1.1rem; font-weight: 700; }
+ 
+        footer { text-align: center; padding: 3rem 0; border-top: 1px solid var(--brd); margin-top: 80px; }
+        footer p { font-size: 0.72rem; color: var(--text3); }
+        footer a { color: var(--teal); text-decoration: none; }
+ 
+        /* SKELETON */
+        .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 6px; }
+        @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+ 
+        @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+        .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease-out, transform 0.65s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+ 
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.4rem; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .social-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .hero-actions { flex-direction: column; align-items: center; }
+            .games-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .game-stats-row { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
-<!-- Body now uses a subtle black/dark gray gradient -->
-<body class="text-white flex justify-center items-start pt-12 md:pt-24 antialiased bg-gradient-to-br from-gray-950 to-gray-800 min-h-screen">
-
-    <!-- Main Container with max width, centered -->
-    <div class="container w-full max-w-xl mx-auto p-4">
-        
-        <!-- HEADER / PROFILE SECTION -->
-        <header class="text-center mb-10">
-            <img 
-                src="https://github.com/Coaler1.png" 
-                alt="Coaler1 Profile Picture" 
-                class="w-24 h-24 rounded-full mx-auto mb-3 object-cover border-4 border-primary-blue shadow-lg"
-            >
-            <h1 class="text-3xl font-extrabold text-white">Coaler1</h1>
-            <p class="text-lg text-primary-blue font-medium mt-1">Lua Scripter For-Hire</p>
-            <p class="text-sm text-gray-400 mt-2">Hey, I'm Coaler — your ideas, my code.</p>
-        </header>
-
-        <!-- SEPARATOR -->
-        <div class="separator my-8"></div>
-
-        <!-- SKILLS / EXPERTISE SECTION - Glassmorphism & Hover Effect added -->
-        <section class="mb-10 p-6 glass-card rounded-xl shadow-2xl border border-gray-800 hover-card-effect">
-            <h2 class="text-xl font-semibold mb-4 text-gray-200 flex items-center justify-center">
-                <i class="fas fa-wrench mr-3 text-primary-blue"></i> What I Do
-            </h2>
-
-            <!-- Skill Tags use slightly more opaque background for readability -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                <!-- Individual Skill Tag Style -->
-                <div class="flex items-center p-3 bg-gray-800/50 rounded-lg transition duration-200 hover:bg-gray-700/70">
-                    <i class="fas fa-gamepad text-primary-blue mr-3"></i>
-                    <span>Gameplay systems (pets, shops, abilities)</span>
-                </div>
-                <div class="flex items-center p-3 bg-gray-800/50 rounded-lg transition duration-200 hover:bg-gray-700/70">
-                    <i class="fas fa-network-wired text-primary-blue mr-3"></i>
-                    <span>Client-Server Logic (Security & Performance)</span>
-                </div>
-                <div class="flex items-center p-3 bg-gray-800/50 rounded-lg transition duration-200 hover:bg-gray-700/70">
-                    <i class="fas fa-database text-primary-blue mr-3"></i>
-                    <span>Datastores / Saving (Reliable)</span>
-                </div>
-                <div class="flex items-center p-3 bg-gray-800/50 rounded-lg transition duration-200 hover:bg-gray-700/70">
-                    <i class="fas fa-palette text-primary-blue mr-3"></i>
-                    <span>UI Logic & Dynamic Animations</span>
-                </div>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+ 
+    <nav>
+        <a class="nav-brand" href="#"><img src="https://github.com/Coaler1.png" alt="Coaler1"><span>Coaler1</span></a>
+        <ul class="nav-links">
+            <li><a href="#games">Games</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+ 
+    <main>
+        <section class="hero" id="hero">
+            <div class="hero-av"><img src="https://github.com/Coaler1.png" alt="Coaler1"></div>
+            <div class="hero-badge"><span class="dot"></span> Available for hire</div>
+            <h1>Hey, I'm <span class="gt">Coaler1</span></h1>
+            <p class="hero-sub">Lua scripter building <strong>gameplay systems</strong>, datastores, client-server logic and polished UI for Roblox games.</p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary"><i class="fab fa-discord"></i> Hire Me</a>
+                <a href="#games" class="btn btn-ghost"><i class="fas fa-gamepad"></i> View My Work</a>
             </div>
         </section>
-
-        <a href="showcase.html" target="_blank" class="mb-10 block text-center p-4 rounded-xl shadow-2xl transition duration-300 hover:scale-[1.01] bg-primary-blue text-white font-bold text-lg uppercase tracking-wider border-2 border-primary-blue hover:bg-blue-600 hover:shadow-primary-blue/50">
-            <i class="fas fa-hammer mr-2"></i> Past Work: Click Me
-        </a>
-        
-        <!-- PRICING & RATES SECTION - Glassmorphism & Hover Effect added -->
-        <section class="mb-10 p-6 glass-card rounded-xl shadow-2xl border border-gray-800 hover-card-effect">
-            <h2 class="text-xl font-semibold mb-4 text-gray-200 flex items-center justify-center">
-                <i class="fas fa-dollar-sign mr-3 text-primary-blue"></i> Pricing & Rates
-            </h2>
-
-            <div class="space-y-4 text-sm text-gray-300">
-                
-                <div class="flex justify-between items-center p-3 bg-gray-800/50 rounded-lg">
-                    <span class="font-medium text-white">Hourly Rate</span>
-                    <span class="text-primary-blue font-bold text-base text-right">
-                        €15 / $16
-                        <span class="block text-xs font-normal text-gray-400 mt-1 sm:inline sm:mt-0">(~R$4,500)</span>
-                    </span>
-                </div>
-
-                <div class="flex justify-between items-center p-3 bg-gray-800/50 rounded-lg">
-                    <span class="font-medium text-white">Minimum Project Fee</span>
-                    <span class="text-primary-blue font-bold text-base text-right">
-                        €35 / $38 
-                        <span class="block text-xs font-normal text-gray-400 mt-1 sm:inline sm:mt-0">(~R$10,000)</span>
-                    </span>
-                </div>
-
-                <div class="p-3 bg-gray-800/50 rounded-lg text-center mt-4">
-                    <span class="block text-sm text-gray-400 italic">Custom quotes are available upon detailed project analysis.</span>
-                </div>
+ 
+        <!-- LIVE STATS -->
+        <div class="stats-bar" id="total-stats">
+            <div class="stat-item"><div class="stat-num c-purple" id="total-games">—</div><div class="stat-lbl">Games</div></div>
+            <div class="stat-item"><div class="stat-num c-teal" id="total-visits">—</div><div class="stat-lbl"><span class="live-dot" style="background:var(--teal)"></span>Total Visits</div></div>
+            <div class="stat-item"><div class="stat-num c-pink" id="total-playing">—</div><div class="stat-lbl"><span class="live-dot" style="background:var(--pink)"></span>Playing Now</div></div>
+            <div class="stat-item"><div class="stat-num c-gold" id="total-favs">—</div><div class="stat-lbl">Total Favorites</div></div>
+        </div>
+ 
+        <!-- GAMES -->
+        <section class="section fade-in" id="games">
+            <div class="section-label">Portfolio</div>
+            <h2 class="section-title">Games I've Worked On</h2>
+            <p class="section-desc">Live stats pulled directly from Roblox — updated every page load.</p>
+            <div class="games-grid" id="games-container">
+                <!-- skeleton placeholders -->
+                <div class="game-card" style="pointer-events:none"><div class="game-thumb-wrap skeleton" style="aspect-ratio:16/9"></div><div class="game-info"><div class="skeleton" style="width:60px;height:16px;margin-bottom:8px"></div><div class="skeleton" style="width:180px;height:20px;margin-bottom:12px"></div><div class="skeleton" style="width:100%;height:10px;margin-bottom:6px"></div><div class="skeleton" style="width:80%;height:10px;margin-bottom:16px"></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px"><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div></div></div></div>
+                <div class="game-card" style="pointer-events:none"><div class="game-thumb-wrap skeleton" style="aspect-ratio:16/9"></div><div class="game-info"><div class="skeleton" style="width:60px;height:16px;margin-bottom:8px"></div><div class="skeleton" style="width:180px;height:20px;margin-bottom:12px"></div><div class="skeleton" style="width:100%;height:10px;margin-bottom:6px"></div><div class="skeleton" style="width:80%;height:10px;margin-bottom:16px"></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px"><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div></div></div></div>
+            </div>
+            <a href="showcase.html" class="showcase-cta"><i class="fas fa-play-circle"></i> &nbsp;Watch Full Showcase Videos</a>
+        </section>
+ 
+        <!-- SKILLS -->
+        <section class="section fade-in" id="skills">
+            <div class="section-label">Expertise</div>
+            <h2 class="section-title">What I Do</h2>
+            <p class="section-desc">Specialized Roblox Lua development — clean, secure, performant.</p>
+            <div class="skills-grid">
+                <div class="skill-card"><div class="skill-icon purple"><i class="fas fa-gamepad"></i></div><h3>Gameplay Systems</h3><p>Pets, shops, abilities, rebirth loops — complete game mechanics from scratch.</p></div>
+                <div class="skill-card"><div class="skill-icon teal"><i class="fas fa-shield-halved"></i></div><h3>Client-Server Logic</h3><p>Secure remote architecture with server-side validation and anti-exploit patterns.</p></div>
+                <div class="skill-card"><div class="skill-icon pink"><i class="fas fa-database"></i></div><h3>Datastores & Saving</h3><p>Reliable, session-locked datastores with auto-save, retry logic & data migration.</p></div>
+                <div class="skill-card"><div class="skill-icon gold"><i class="fas fa-wand-magic-sparkles"></i></div><h3>UI & Animations</h3><p>Dynamic interfaces with smooth tweens, responsive layouts and polished UX.</p></div>
             </div>
         </section>
-
-        <!-- HOW I WORK SECTION - Glassmorphism & Hover Effect added -->
-        <section class="mb-10 p-6 glass-card rounded-xl shadow-2xl border border-gray-800 hover-card-effect">
-            <h2 class="text-xl font-semibold mb-4 text-gray-200 flex items-center justify-center">
-                <i class="fas fa-handshake mr-3 text-primary-blue"></i> How I Work
-            </h2>
-            <ul class="space-y-3 text-sm text-gray-300">
-                <li class="flex items-start p-2 bg-gray-800/50 rounded-lg">
-                    <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
-                    <span>Clear communication</span>
-                </li>
-                <li class="flex items-start p-2 bg-gray-800/50 rounded-lg">
-                    <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
-                    <span>Fast delivery</span>
-                </li>
-                <li class="flex items-start p-2 bg-gray-800/50 rounded-lg">
-                    <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
-                    <span>Clean, readable, non-spaghetti code</span>
-                </li>
-                <li class="flex items-start p-2 bg-gray-800/50 rounded-lg">
-                    <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
-                    <span>I fix problems instead of hiding them</span>
-                </li>
-                <li class="flex items-start p-2 bg-gray-800/50 rounded-lg">
-                    <i class="fas fa-check-circle text-primary-blue mt-0.5 mr-3 flex-shrink-0"></i>
-                    <span>I won’t disappear mid-project</span>
-                </li>
-            </ul>
-        </section>
-
-        <!-- SOCIAL LINKS / CONTACT SECTION -->
-        <section class="mb-10">
-            <h2 class="text-xl font-semibold mb-6 text-gray-200 text-center">Contact & Presence</h2>
-            
-            <!-- Link Cards in a 3-column grid (1 column on mobile) -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                
-                <!-- GitHub Card - Glassmorphism & Hover Effect added -->
-                <a href="https://github.com/Coaler1" target="_blank" class="flex flex-col items-center justify-center p-6 glass-card rounded-xl shadow-lg border border-gray-800 hover:bg-gray-700/70 hover-card-effect">
-                    <i class="fab fa-github text-4xl text-primary-blue mb-2"></i>
-                    <span class="text-lg font-semibold">GitHub</span>
-                    <span class="text-xs text-gray-400">Code Repositories</span>
-                </a>
-
-                <!-- Twitter Card - Glassmorphism & Hover Effect added -->
-                <a href="https://twitter.com/Coaler1Dev" target="_blank" class="flex flex-col items-center justify-center p-6 glass-card rounded-xl shadow-lg border border-gray-800 hover:bg-gray-700/70 hover-card-effect">
-                    <i class="fab fa-twitter text-4xl text-blue-400 mb-2"></i>
-                    <span class="text-lg font-semibold">Twitter</span>
-                    <span class="text-xs text-gray-400">@Coaler1Dev</span>
-                </a>
-
-                <!-- Discord Card - Glassmorphism & Hover Effect added -->
-                <div class="flex flex-col items-center justify-center p-6 glass-card rounded-xl shadow-lg border border-gray-800 hover:bg-gray-700/70 hover-card-effect cursor-pointer">
-                    <i class="fa-brands fa-discord text-4xl text-indigo-400 mb-2"></i>
-                    <span class="text-lg font-semibold">Discord</span>
-                    <span class="text-xs text-gray-400">coaler1</span>
-                </div>
-
+ 
+        <!-- PRICING -->
+        <section class="section fade-in" id="pricing">
+            <div class="section-label">Rates</div>
+            <h2 class="section-title">Pricing</h2>
+            <p class="section-desc">Transparent pricing — no hidden fees.</p>
+            <div class="pricing-grid">
+                <div class="price-card"><div class="price-label">Hourly Rate</div><div class="price-amount c-teal">€15</div><div class="price-sub">~$16 · ~R$4,500</div></div>
+                <div class="price-card featured"><div class="price-label">Min. Project Fee</div><div class="price-amount c-purple">€35</div><div class="price-sub">~$38 · ~R$10,000</div></div>
+                <div class="price-card"><div class="price-label">Custom Quote</div><div class="price-amount c-gold" style="font-size:1.6rem">On Request</div><div class="price-sub">For larger projects</div></div>
             </div>
         </section>
-        
-        <!-- NEW: DETAILS FRAME -->
-        <section class="mb-10 p-6 glass-card rounded-xl shadow-2xl border border-gray-800 hover-card-effect">
-            <h2 class="text-xl font-semibold mb-4 text-gray-200 flex items-center justify-center">
-                <i class="fas fa-info-circle mr-3 text-primary-blue"></i> Details
-            </h2>
-            
-            <div class="grid grid-cols-2 gap-4 text-center">
-                <!-- Payment Type -->
-                <div>
-                    <span class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Payment Type</span>
-                    <span class="block text-lg font-bold text-white">Upon completion</span>
-                </div>
-                
-                <!-- Contact Handle -->
-                <div>
-                    <span class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1">Contact Handle</span>
-                    <span class="block text-lg font-bold text-primary-blue">@coaler1</span>
-                </div>
+ 
+        <!-- HOW I WORK -->
+        <section class="section fade-in">
+            <div class="section-label">Process</div>
+            <h2 class="section-title">How I Work</h2>
+            <div class="workflow-list">
+                <div class="workflow-item"><div class="workflow-num c1">01</div><span>Clear communication — no guessing, no ghosting</span></div>
+                <div class="workflow-item"><div class="workflow-num c2">02</div><span>Fast delivery with regular progress updates</span></div>
+                <div class="workflow-item"><div class="workflow-num c3">03</div><span>Clean, readable, non-spaghetti code</span></div>
+                <div class="workflow-item"><div class="workflow-num c4">04</div><span>I fix problems instead of hiding them</span></div>
+                <div class="workflow-item"><div class="workflow-num c5">05</div><span>Payment upon completion — you see results first</span></div>
             </div>
         </section>
-
-
-        <!-- FOOTER -->
-        <footer class="text-center mt-12 text-gray-500 text-sm">
-            <p>&copy; 2024 Coaler1. Powered by HTML & Tailwind CSS.</p>
-        </footer>
-
-    </div>
+ 
+        <!-- CONTACT -->
+        <section class="section fade-in" id="contact">
+            <div class="section-label">Connect</div>
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-desc">Ready to bring your game idea to life? Hit me up.</p>
+            <div class="social-grid">
+                <a href="https://github.com/Coaler1" target="_blank" class="social-card"><i class="fab fa-github" style="color:var(--lilac)"></i><span class="social-name">GitHub</span><span class="social-handle">Coaler1</span></a>
+                <a href="https://twitter.com/Coaler1Dev" target="_blank" class="social-card"><i class="fab fa-twitter" style="color:#1d9bf0"></i><span class="social-name">Twitter</span><span class="social-handle">@Coaler1Dev</span></a>
+                <div class="social-card" style="cursor:default"><i class="fab fa-discord" style="color:#5865f2"></i><span class="social-name">Discord</span><span class="social-handle">coaler1</span></div>
+            </div>
+            <div class="details-grid">
+                <div class="detail-item"><div class="detail-label">Payment</div><div class="detail-value c-teal">Upon Completion</div></div>
+                <div class="detail-item"><div class="detail-label">Contact Handle</div><div class="detail-value c-purple">@coaler1</div></div>
+            </div>
+        </section>
+    </main>
+ 
+    <footer><p>&copy; 2024 <a href="#">Coaler1</a> &middot; Lua Scripter for Hire</p></footer>
+ 
+    <script>
+    /*
+     * ╔═══════════════════════════════════════════════════════════╗
+     * ║  CONFIGURE YOUR GAMES HERE                               ║
+     * ║                                                           ║
+     * ║  universeId → find at create.roblox.com (Copy Universe ID)║
+     * ║  placeId    → the number in your game's Roblox URL        ║
+     * ║                                                           ║
+     * ║  Everything else (name, icon, visits, playing, favorites, ║
+     * ║  likes/dislikes) is fetched LIVE from the Roblox API.     ║
+     * ╚═══════════════════════════════════════════════════════════╝
+     */
+ 
+    const GAMES = [
+        {
+            universeId: "DEINE_UNIVERSE_ID_1",   // ← Ersetze mit deiner echten Universe ID
+            placeId:    "DEINE_PLACE_ID_1",       // ← Ersetze mit deiner echten Place ID
+            tag: "Template",
+            tagColor: "purple",
+            description: "Custom scripted template inspired by \"Poison Treats\" — full gameplay loop, UI & datastores.",
+            videoId: "o0llXai63nU"
+        },
+        {
+            universeId: "DEINE_UNIVERSE_ID_2",   // ← Ersetze mit deiner echten Universe ID
+            placeId:    "DEINE_PLACE_ID_2",       // ← Ersetze mit deiner echten Place ID
+            tag: "Template",
+            tagColor: "teal",
+            description: "Custom scripted template inspired by \"Build a Scam Empire\" — rebirth system, shop & economy.",
+            videoId: "R2Rgj9Bdnpc"
+        }
+    ];
+ 
+    // ── CORS proxy fallback chain ──
+    const PROXIES = [
+        url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+        url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+        url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+    ];
+ 
+    async function proxyFetch(url) {
+        for (const mkUrl of PROXIES) {
+            try {
+                const r = await fetch(mkUrl(url), { signal: AbortSignal.timeout(8000) });
+                if (r.ok) return JSON.parse(await r.text());
+            } catch {}
+        }
+        return null;
+    }
+ 
+    function fmt(n) {
+        if (n == null) return '—';
+        if (n >= 1e6) return (n/1e6).toFixed(1).replace('.0','') + 'M';
+        if (n >= 1e3) return (n/1e3).toFixed(1).replace('.0','') + 'K';
+        return n.toLocaleString();
+    }
+ 
+    function animNum(el, target) {
+        const dur = 1800, t0 = performance.now();
+        (function tick(now) {
+            const p = Math.min((now-t0)/dur, 1);
+            el.textContent = fmt(Math.round((1-Math.pow(1-p,3)) * target));
+            if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+    }
+ 
+    function card(g, d, thumb) {
+        const v = d?.visits??0, p = d?.playing??0, f = d?.favoritedCount??0;
+        const name = d?.name ?? 'Loading…';
+        const up = d?.totalUpVotes??0, dn = d?.totalDownVotes??0;
+        const rat = (up+dn)>0 ? Math.round(up/(up+dn)*100)+'%' : '—';
+        const img = thumb || `https://img.youtube.com/vi/${g.videoId}/hqdefault.jpg`;
+        return `
+        <a href="https://www.roblox.com/games/${g.placeId}" target="_blank" class="game-card">
+            <div class="game-thumb-wrap">
+                <img src="${img}" alt="${name}" loading="lazy">
+                <div class="game-live-badge"><span class="dot"></span>${fmt(p)} playing</div>
+            </div>
+            <div class="game-info">
+                <span class="game-tag ${g.tagColor}">${g.tag}</span>
+                <h3>${name}</h3>
+                <p class="game-desc">${g.description}</p>
+                <div class="game-stats-row">
+                    <div class="game-stat"><div class="game-stat-val c-teal">${fmt(v)}</div><div class="game-stat-lbl">Visits</div></div>
+                    <div class="game-stat"><div class="game-stat-val c-pink">${fmt(p)}</div><div class="game-stat-lbl">Playing</div></div>
+                    <div class="game-stat"><div class="game-stat-val c-gold">${fmt(f)}</div><div class="game-stat-lbl">Favs</div></div>
+                    <div class="game-stat"><div class="game-stat-val c-purple">${rat}</div><div class="game-stat-lbl">Rating</div></div>
+                </div>
+            </div>
+        </a>`;
+    }
+ 
+    async function init() {
+        const ids = GAMES.map(g=>g.universeId).join(',');
+        const [api, thumbs] = await Promise.all([
+            proxyFetch(`https://games.roblox.com/v1/games?universeIds=${ids}`),
+            proxyFetch(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${ids}&returnPolicy=PlaceHolder&size=512x512&format=Png&isCircular=false`)
+        ]);
+ 
+        let tV=0, tP=0, tF=0, html='';
+        for (const g of GAMES) {
+            const d = api?.data?.find(x=>String(x.id)===g.universeId) || null;
+            const t = thumbs?.data?.find(x=>String(x.targetId)===g.universeId)?.imageUrl || null;
+            if(d){ tV+=d.visits||0; tP+=d.playing||0; tF+=d.favoritedCount||0; }
+            html += card(g, d, t);
+        }
+        document.getElementById('games-container').innerHTML = html;
+ 
+        animNum(document.getElementById('total-games'), GAMES.length);
+        animNum(document.getElementById('total-visits'), tV);
+        animNum(document.getElementById('total-playing'), tP);
+        animNum(document.getElementById('total-favs'), tF);
+    }
+ 
+    // scroll reveal
+    const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.08});
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+ 
+    // smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'});
+    }));
+ 
+    init();
+    </script>
 </body>
 </html>
