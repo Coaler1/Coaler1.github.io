@@ -107,7 +107,7 @@
             gap: 12px;
             text-decoration: none;
             font-weight: 700;
-            letter-spacing: -0.02em;
+            letter-spacing: 0;
         }
 
         .brand-mark {
@@ -123,8 +123,7 @@
         .eyebrow,
         .meta-label,
         .stat-label,
-        .pill,
-        .terms-list strong {
+        .pill {
             letter-spacing: 0.08em;
             text-transform: uppercase;
         }
@@ -217,7 +216,7 @@
             margin: 18px 0 16px;
             font-size: clamp(2.8rem, 7vw, 5.6rem);
             line-height: 0.94;
-            letter-spacing: -0.06em;
+            letter-spacing: 0;
         }
 
         .hero-copy p {
@@ -273,7 +272,9 @@
         .contact-card,
         .section-card,
         .game-card,
-        .terms-card {
+        .terms-card,
+        .price-card,
+        .contact-panel {
             border-radius: var(--radius-lg);
         }
 
@@ -312,7 +313,7 @@
         .metric-value {
             font-size: 1.35rem;
             font-weight: 800;
-            letter-spacing: -0.04em;
+            letter-spacing: 0;
         }
 
         .metric-note {
@@ -333,28 +334,31 @@
         }
 
         .section {
-            padding: 18px 0 0;
+            padding: 56px 0 0;
         }
 
         .section-head {
             display: flex;
             justify-content: space-between;
             gap: 18px;
-            align-items: end;
-            margin-bottom: 20px;
+            align-items: flex-start;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .section-head h2 {
             margin: 8px 0 0;
             font-size: clamp(2rem, 4vw, 3rem);
-            letter-spacing: -0.05em;
+            letter-spacing: 0;
         }
 
         .section-head p {
             margin: 0;
-            max-width: 560px;
+            max-width: 430px;
             color: var(--muted);
-            line-height: 1.7;
+            line-height: 1.55;
+            font-size: 0.95rem;
         }
 
         .eyebrow-subtle {
@@ -371,11 +375,48 @@
             gap: 20px;
         }
 
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .price-card {
+            padding: 24px;
+        }
+
+        .price-card.is-featured {
+            border-color: rgba(215, 236, 255, 0.36);
+            background: linear-gradient(180deg, rgba(215, 236, 255, 0.16), rgba(255, 255, 255, 0.06));
+        }
+
+        .price-label {
+            color: var(--muted-soft);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 14px;
+        }
+
+        .price-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .price-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
         .game-card {
             position: relative;
             overflow: hidden;
             padding: 24px;
-            min-height: 360px;
+            min-height: 310px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -431,7 +472,7 @@
         .game-card h3 {
             margin: 18px 0 10px;
             font-size: 1.72rem;
-            letter-spacing: -0.04em;
+            letter-spacing: 0;
         }
 
         .game-card p {
@@ -443,7 +484,7 @@
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 12px;
             margin-top: 24px;
         }
@@ -459,7 +500,7 @@
             display: block;
             font-size: 1.08rem;
             font-weight: 700;
-            letter-spacing: -0.03em;
+            letter-spacing: 0;
             margin-bottom: 6px;
         }
 
@@ -479,15 +520,16 @@
             color: var(--accent-strong);
         }
 
-        .terms-layout {
+        .terms-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-            gap: 20px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
         }
 
         .section-card,
-        .terms-card {
-            padding: 28px;
+        .terms-card,
+        .contact-panel {
+            padding: 24px;
         }
 
         .section-card p,
@@ -497,31 +539,43 @@
             line-height: 1.75;
         }
 
-        .terms-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: grid;
-            gap: 14px;
+        .terms-card h3,
+        .contact-panel h3 {
+            margin: 0 0 10px;
+            font-size: 1.05rem;
         }
 
-        .terms-list li {
-            padding: 16px 0 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.09);
+        .terms-card p,
+        .contact-panel p {
             color: var(--muted);
-            line-height: 1.7;
+            line-height: 1.65;
+            margin: 0;
         }
 
-        .terms-list li:first-child {
-            padding-top: 0;
-            border-top: none;
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr 1fr;
+            gap: 16px;
         }
 
-        .terms-list strong {
+        .contact-panel {
             display: block;
-            color: var(--text);
-            font-size: 0.7rem;
-            margin-bottom: 7px;
+            min-height: 170px;
+        }
+
+        .contact-panel.is-main {
+            background: linear-gradient(180deg, rgba(215, 236, 255, 0.15), rgba(255, 255, 255, 0.06));
+            border-color: rgba(215, 236, 255, 0.3);
+        }
+
+        .contact-link {
+            text-decoration: none;
+            transition: transform 180ms ease, border-color 180ms ease;
+        }
+
+        .contact-link:hover {
+            transform: translateY(-4px);
+            border-color: var(--panel-border-strong);
         }
 
         .footer {
@@ -544,7 +598,9 @@
 
         @media (max-width: 980px) {
             .hero-grid,
-            .terms-layout,
+            .terms-grid,
+            .pricing-grid,
+            .contact-grid,
             .games-grid {
                 grid-template-columns: 1fr;
             }
@@ -575,8 +631,10 @@
             .hero-panel,
             .section-card,
             .terms-card,
+            .price-card,
             .metric-card,
             .contact-card,
+            .contact-panel,
             .game-card {
                 padding: 22px;
             }
@@ -606,6 +664,7 @@
             </a>
             <nav class="nav-links" aria-label="Primary navigation">
                 <a href="#games">Games</a>
+                <a href="#pricing">Pricing</a>
                 <a href="#terms">Terms</a>
                 <a href="#contact">Contact</a>
             </nav>
@@ -620,14 +679,14 @@
                                 <span class="status-dot"></span>
                                 Available for Roblox commissions
                             </div>
-                            <h1>Minimal, polished Roblox development with a professional delivery flow.</h1>
+                            <h1>Coaler1</h1>
                             <p>
-                                I build clean Roblox systems, production-ready gameplay loops, and structured code that is easy to maintain.
-                                This portfolio focuses on shipped game work only, with a straightforward process for commissions, payments, and final delivery.
+                                Roblox Lua scripter focused on clean gameplay systems, secure client-server logic,
+                                datastores, UI polish, shops, economy loops, and complete playable experiences.
                             </p>
                             <div class="hero-actions">
                                 <a class="button button-primary" href="#games">View Games</a>
-                                <a class="button button-secondary" href="#terms">Read Terms</a>
+                                <a class="button button-secondary" href="#contact">Contact Me</a>
                             </div>
                         </div>
 
@@ -642,10 +701,10 @@
                                 </div>
                                 <div class="metric-item">
                                     <div>
-                                        <span class="meta-label">Portfolio</span>
-                                        <div class="metric-value">2 Featured Games</div>
+                                        <span class="meta-label">Games</span>
+                                        <div class="metric-value">2 Live Projects</div>
                                     </div>
-                                    <div class="metric-note">Direct Roblox<br>links included</div>
+                                    <div class="metric-note">Playable on<br>Roblox</div>
                                 </div>
                                 <div class="metric-item">
                                     <div>
@@ -656,12 +715,11 @@
                                 </div>
                             </aside>
 
-                            <aside class="contact-card glass" id="contact">
+                            <aside class="contact-card glass">
                                 <span class="meta-label">Contact</span>
                                 <div class="metric-value">Discord: <span class="mono">coaler1</span></div>
                                 <p>
-                                    For serious inquiries, send the game scope, requested systems, deadline, and budget.
-                                    Clear briefs lead to faster quotes and cleaner delivery.
+                                    Send your idea, budget, deadline, and the systems you need.
                                 </p>
                             </aside>
                         </div>
@@ -676,7 +734,7 @@
                         <h2>Games</h2>
                     </div>
                     <p>
-                        A simplified portfolio layout focused only on Roblox game work, without extra showcase pages or filler sections.
+                        Live Roblox projects.
                     </p>
                 </div>
 
@@ -686,8 +744,7 @@
                             <span class="pill">Live Roblox Experience</span>
                             <h3>Drop My Brainrot</h3>
                             <p>
-                                A fast, playful Roblox experience presented here as direct shipped work.
-                                The card links straight to the live game page so clients can review the result immediately.
+                                Gameplay-focused Roblox project with live public access.
                             </p>
                         </div>
                         <div class="card-bottom">
@@ -704,10 +761,6 @@
                                     <span class="stat-value">Gameplay</span>
                                     <span class="stat-label">Category</span>
                                 </div>
-                                <div class="stat">
-                                    <span class="stat-value mono">106539620555081</span>
-                                    <span class="stat-label">Place ID</span>
-                                </div>
                             </div>
                             <div class="card-link">Open Game Page</div>
                         </div>
@@ -718,8 +771,7 @@
                             <span class="pill">Live Roblox Experience</span>
                             <h3>Drop a Lucky Block</h3>
                             <p>
-                                A second featured experience shown in the same polished format, keeping the portfolio concise,
-                                professional, and centered around real game outputs instead of extra pages.
+                                Lucky-block style Roblox game with systems-driven gameplay.
                             </p>
                         </div>
                         <div class="card-bottom">
@@ -736,10 +788,6 @@
                                     <span class="stat-value">Systems</span>
                                     <span class="stat-label">Category</span>
                                 </div>
-                                <div class="stat">
-                                    <span class="stat-value mono">110132375516345</span>
-                                    <span class="stat-label">Place ID</span>
-                                </div>
                             </div>
                             <div class="card-link">Open Game Page</div>
                         </div>
@@ -747,52 +795,107 @@
                 </div>
             </section>
 
-            <section class="section reveal" id="terms">
+            <section class="section reveal" id="pricing">
                 <div class="section-head">
                     <div>
-                        <div class="eyebrow-subtle">Professional terms</div>
-                        <h2>Terms of Service</h2>
+                        <div class="eyebrow-subtle">Rates</div>
+                        <h2>Pricing</h2>
                     </div>
                     <p>
-                        Clear terms help avoid misunderstandings and make the commission flow feel more serious for clients.
+                        Simple starting rates for commissions.
                     </p>
                 </div>
 
-                <div class="terms-layout">
-                    <div class="section-card glass">
-                        <p>
-                            By commissioning development work, the client agrees to the pricing, scope, and delivery conditions listed below.
-                            Final files, source code, or editable project assets are not transferred until the agreed payment has been completed in full.
-                            If payment is made through Roblox gamepasses or other Roblox marketplace methods, the client is responsible for covering Roblox tax so the agreed net amount is received.
-                        </p>
+                <div class="pricing-grid">
+                    <div class="price-card glass">
+                        <div class="price-label">Hourly</div>
+                        <div class="price-value">15 EUR</div>
+                        <p>Small tasks, fixes, UI work, balancing.</p>
+                    </div>
+
+                    <div class="price-card glass is-featured">
+                        <div class="price-label">Minimum Project</div>
+                        <div class="price-value">35 EUR</div>
+                        <p>Base price for custom scripted systems.</p>
+                    </div>
+
+                    <div class="price-card glass">
+                        <div class="price-label">Custom Quote</div>
+                        <div class="price-value">On Request</div>
+                        <p>Full loops, larger systems, long-term work.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section reveal" id="terms">
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow-subtle">Commission Rules</div>
+                        <h2>Terms of Service</h2>
+                    </div>
+                    <p>
+                        Short and clear.
+                    </p>
+                </div>
+
+                <div class="terms-grid">
+                    <div class="terms-card glass">
+                        <h3>Payment</h3>
+                        <p>Final product and source files are delivered after full payment.</p>
                     </div>
 
                     <div class="terms-card glass">
-                        <ul class="terms-list">
-                            <li>
-                                <strong>Payment Method</strong>
-                                Payments sent through Roblox gamepasses must include enough extra Robux to cover Roblox marketplace tax.
-                            </li>
-                            <li>
-                                <strong>Final Delivery</strong>
-                                The finished product is delivered only after full payment has been received and confirmed.
-                            </li>
-                            <li>
-                                <strong>Scope Changes</strong>
-                                New features or revisions outside the agreed scope may require a new quote or additional payment.
-                            </li>
-                            <li>
-                                <strong>Client Responsibility</strong>
-                                The client must provide a clear brief, required assets, and access details needed for the requested work.
-                            </li>
-                        </ul>
+                        <h3>Roblox Tax</h3>
+                        <p>Gamepass payments must cover Roblox tax so the agreed net amount arrives.</p>
+                    </div>
+
+                    <div class="terms-card glass">
+                        <h3>Revisions</h3>
+                        <p>Small scoped fixes are included. New features require a new quote.</p>
+                    </div>
+
+                    <div class="terms-card glass">
+                        <h3>Client Requirements</h3>
+                        <p>Provide brief, assets, access, deadline, and references before work starts.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section reveal" id="contact">
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow-subtle">Start a commission</div>
+                        <h2>Contact</h2>
+                    </div>
+                    <p>
+                        Send scope, budget, deadline, and references.
+                    </p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-panel glass is-main">
+                        <span class="meta-label">Discord</span>
+                        <h3 class="mono">coaler1</h3>
+                        <p>Best place for quotes, commission details, and progress updates.</p>
+                    </div>
+
+                    <a class="contact-panel contact-link glass" href="https://github.com/Coaler1" target="_blank" rel="noreferrer">
+                        <span class="meta-label">GitHub</span>
+                        <h3>Coaler1</h3>
+                        <p>Developer profile.</p>
+                    </a>
+
+                    <div class="contact-panel glass">
+                        <span class="meta-label">Brief Template</span>
+                        <h3>Idea, Budget, Deadline</h3>
+                        <p>Add systems, examples, assets, and payment type.</p>
                     </div>
                 </div>
             </section>
         </main>
 
         <footer class="footer">
-            Coaler1 Roblox Developer Portfolio
+            Coaler1 Roblox Developer
         </footer>
     </div>
 
