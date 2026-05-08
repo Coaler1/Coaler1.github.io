@@ -3,429 +3,824 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coaler1 — Lua Scripter Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Professional Roblox developer portfolio for Coaler1 featuring shipped game work, workflow, and commission terms.">
+    <title>Coaler1 | Roblox Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
- 
-        :root {
-            --bg: #06060c;
-            --bg-card: rgba(14, 14, 26, 0.65);
-            --bg-card-hover: rgba(22, 22, 44, 0.85);
-            --accent: #6c5ce7;
-            --teal: #00cec9;
-            --pink: #fd79a8;
-            --gold: #fdcb6e;
-            --green: #55efc4;
-            --lilac: #a29bfe;
-            --grad-main: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            --grad-hot: linear-gradient(135deg, #fd79a8, #e84393);
-            --grad-teal: linear-gradient(135deg, #00cec9, #00b894);
-            --grad-gold: linear-gradient(135deg, #fdcb6e, #e17055);
-            --glow: rgba(108, 92, 231, 0.3);
-            --text: #eaeaf5;
-            --text2: #8888a8;
-            --text3: #505068;
-            --brd: rgba(255,255,255,0.06);
-            --brd-h: rgba(108,92,231,0.4);
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
- 
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
- 
-        .bg-grid { position: fixed; inset: 0; z-index: 0; background-image: linear-gradient(rgba(108,92,231,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(108,92,231,0.035) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black 20%, transparent 100%); }
-        .bg-orb { position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; }
-        .bg-orb-1 { top: -120px; left: 20%; width: 500px; height: 500px; background: rgba(108,92,231,0.15); animation: f1 8s ease-in-out infinite alternate; }
-        .bg-orb-2 { top: 100px; right: 10%; width: 400px; height: 400px; background: rgba(0,206,201,0.1); animation: f2 10s ease-in-out infinite alternate; }
-        .bg-orb-3 { bottom: 20%; left: 5%; width: 350px; height: 350px; background: rgba(253,121,168,0.08); animation: f1 12s ease-in-out infinite alternate-reverse; }
-        @keyframes f1 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(30px,-20px) scale(1.1)} }
-        @keyframes f2 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(-20px,30px) scale(1.05)} }
- 
-        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; background: rgba(6,6,12,0.8); backdrop-filter: blur(24px); border-bottom: 1px solid var(--brd); }
-        .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; color: var(--text); text-decoration: none; }
-        .nav-brand img { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--accent); }
-        .nav-brand span { background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-        .nav-links a { color: var(--text2); text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--teal); }
- 
-        main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
- 
-        /* HERO */
-        .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 130px; padding-bottom: 50px; }
-        .hero-av { width: 100px; height: 100px; border-radius: 50%; padding: 3px; background: var(--grad-main); margin-bottom: 1.5rem; animation: fadeUp 0.7s ease-out; box-shadow: 0 0 50px var(--glow); }
-        .hero-av img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(108,92,231,0.1); border: 1px solid rgba(108,92,231,0.25); border-radius: 100px; padding: 5px 16px; font-size: 0.72rem; font-weight: 700; color: var(--teal); letter-spacing: 0.07em; text-transform: uppercase; animation: fadeUp 0.7s ease-out 0.1s both; }
-        .hero-badge .dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: blink 2s infinite; }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-        .hero h1 { font-size: 3.4rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; margin: 0.8rem 0 0.5rem; animation: fadeUp 0.7s ease-out 0.2s both; }
-        .gt { background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero-sub { font-size: 1.05rem; color: var(--text2); max-width: 520px; line-height: 1.65; margin-bottom: 2rem; animation: fadeUp 0.7s ease-out 0.3s both; }
-        .hero-sub strong { color: var(--teal); font-weight: 600; }
-        .hero-actions { display: flex; gap: 1rem; animation: fadeUp 0.7s ease-out 0.4s both; }
-        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 12px; font-family: 'Outfit'; font-weight: 700; font-size: 0.88rem; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; }
-        .btn-primary { background: var(--grad-main); color: #fff; box-shadow: 0 4px 24px var(--glow); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 36px var(--glow); }
-        .btn-ghost { background: transparent; color: var(--text2); border: 1px solid rgba(255,255,255,0.08); }
-        .btn-ghost:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-3px); }
- 
-        /* STATS BAR */
-        .stats-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--brd); border-radius: 18px; overflow: hidden; margin-bottom: 80px; animation: fadeUp 0.7s ease-out 0.5s both; }
-        .stat-item { background: var(--bg-card); padding: 1.6rem 1rem; text-align: center; transition: background 0.3s; }
-        .stat-item:hover { background: var(--bg-card-hover); }
-        .stat-num { font-size: 1.9rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; letter-spacing: -0.02em; }
-        .stat-lbl { font-size: 0.65rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; font-weight: 700; }
-        .live-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: middle; animation: blink 2s infinite; }
- 
-        .c-purple { color: var(--lilac); }
-        .c-teal { color: var(--teal); }
-        .c-pink { color: var(--pink); }
-        .c-gold { color: var(--gold); }
-        .c-green { color: var(--green); }
- 
-        /* SECTIONS */
-        .section { margin-bottom: 80px; }
-        .section-label { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.5rem; background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .section-title { font-size: 2.2rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
-        .section-desc { color: var(--text2); font-size: 0.92rem; margin-bottom: 2rem; max-width: 560px; }
- 
-        /* GAME CARDS */
-        .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-        .game-card { background: var(--bg-card); border: 1px solid var(--brd); border-radius: 18px; overflow: hidden; transition: all 0.4s; text-decoration: none; color: inherit; display: block; }
-        .game-card:hover { transform: translateY(-5px); border-color: var(--brd-h); box-shadow: 0 16px 48px rgba(108,92,231,0.12); }
-        .game-thumb-wrap { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: rgba(20,20,40,0.5); }
-        .game-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-        .game-card:hover .game-thumb-wrap img { transform: scale(1.05); }
-        .game-live-badge { position: absolute; top: 10px; right: 10px; display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); border: 1px solid rgba(85,239,196,0.3); border-radius: 8px; padding: 4px 10px; font-size: 0.65rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.06em; }
-        .game-live-badge .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 1.5s infinite; }
-        .game-info { padding: 1.3rem 1.4rem 1.5rem; }
-        .game-tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.6rem; }
-        .game-tag.purple { background: rgba(108,92,231,0.15); color: var(--lilac); border: 1px solid rgba(108,92,231,0.25); }
-        .game-tag.teal { background: rgba(0,206,201,0.12); color: var(--teal); border: 1px solid rgba(0,206,201,0.2); }
-        .game-tag.pink { background: rgba(253,121,168,0.12); color: var(--pink); border: 1px solid rgba(253,121,168,0.2); }
-        .game-tag.gold { background: rgba(253,203,110,0.12); color: var(--gold); border: 1px solid rgba(253,203,110,0.2); }
-        .game-info h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 0.5rem; }
-        .game-info .game-desc { font-size: 0.78rem; color: var(--text2); line-height: 1.55; margin-bottom: 1rem; }
-        .game-stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
-        .game-stat { text-align: center; padding: 0.55rem 0.3rem; background: rgba(255,255,255,0.025); border-radius: 10px; border: 1px solid var(--brd); }
-        .game-stat-val { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; font-weight: 700; }
-        .game-stat-lbl { font-size: 0.55rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
- 
-        .showcase-cta { display: block; text-align: center; padding: 1.2rem; margin-top: 1.5rem; border-radius: 14px; background: var(--grad-main); color: #fff; font-weight: 800; font-size: 1rem; text-decoration: none; letter-spacing: 0.02em; transition: all 0.3s; box-shadow: 0 4px 20px var(--glow); }
-        .showcase-cta:hover { transform: translateY(-3px); box-shadow: 0 8px 32px var(--glow); }
- 
-        /* SKILLS */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
-        .skill-card { background: var(--bg-card); border: 1px solid var(--brd); border-radius: 16px; padding: 1.5rem; transition: all 0.3s; }
-        .skill-card:hover { border-color: var(--brd-h); transform: translateY(-4px); }
-        .skill-icon { width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 1.15rem; }
-        .skill-icon.purple { background: rgba(108,92,231,0.12); color: var(--lilac); }
-        .skill-icon.teal { background: rgba(0,206,201,0.12); color: var(--teal); }
-        .skill-icon.pink { background: rgba(253,121,168,0.12); color: var(--pink); }
-        .skill-icon.gold { background: rgba(253,203,110,0.12); color: var(--gold); }
-        .skill-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
-        .skill-card p { font-size: 0.8rem; color: var(--text2); line-height: 1.5; }
- 
-        /* PRICING */
-        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-        .price-card { background: var(--bg-card); border: 1px solid var(--brd); border-radius: 18px; padding: 2rem 1.5rem; text-align: center; transition: all 0.3s; position: relative; }
-        .price-card:hover { border-color: var(--brd-h); transform: translateY(-4px); }
-        .price-card.featured { border-color: var(--accent); box-shadow: 0 0 50px var(--glow); }
-        .price-card.featured::before { content: 'POPULAR'; position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: var(--grad-main); color: #fff; font-size: 0.58rem; font-weight: 800; padding: 4px 16px; border-radius: 100px; letter-spacing: 0.12em; }
-        .price-label { font-size: 0.72rem; color: var(--text3); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.8rem; }
-        .price-amount { font-size: 2.4rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.3rem; }
-        .price-sub { font-size: 0.72rem; color: var(--text3); }
- 
-        /* WORKFLOW */
-        .workflow-list { display: flex; flex-direction: column; gap: 0.7rem; }
-        .workflow-item { display: flex; align-items: center; gap: 1rem; background: var(--bg-card); border: 1px solid var(--brd); border-radius: 14px; padding: 1rem 1.5rem; transition: all 0.3s; }
-        .workflow-item:hover { border-color: var(--brd-h); transform: translateX(6px); }
-        .workflow-num { width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 700; flex-shrink: 0; }
-        .workflow-num.c1 { background: rgba(108,92,231,0.15); color: var(--lilac); }
-        .workflow-num.c2 { background: rgba(0,206,201,0.12); color: var(--teal); }
-        .workflow-num.c3 { background: rgba(253,121,168,0.12); color: var(--pink); }
-        .workflow-num.c4 { background: rgba(253,203,110,0.12); color: var(--gold); }
-        .workflow-num.c5 { background: rgba(85,239,196,0.12); color: var(--green); }
-        .workflow-item span { font-size: 0.88rem; font-weight: 500; }
- 
-        /* SOCIAL */
-        .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-        .social-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 2rem 1rem; background: var(--bg-card); border: 1px solid var(--brd); border-radius: 18px; text-decoration: none; color: var(--text); transition: all 0.3s; }
-        .social-card:hover { transform: translateY(-5px); }
-        .social-card:nth-child(1):hover { border-color: rgba(162,155,254,0.4); box-shadow: 0 8px 30px rgba(108,92,231,0.15); }
-        .social-card:nth-child(2):hover { border-color: rgba(29,155,240,0.4); box-shadow: 0 8px 30px rgba(29,155,240,0.12); }
-        .social-card:nth-child(3):hover { border-color: rgba(88,101,242,0.4); box-shadow: 0 8px 30px rgba(88,101,242,0.12); }
-        .social-card i { font-size: 2rem; }
-        .social-name { font-weight: 700; font-size: 0.92rem; }
-        .social-handle { font-size: 0.68rem; color: var(--text3); }
- 
-        .details-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--brd); border-radius: 16px; overflow: hidden; margin-top: 2rem; }
-        .detail-item { background: var(--bg-card); padding: 1.5rem; text-align: center; }
-        .detail-label { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); font-weight: 700; margin-bottom: 0.3rem; }
-        .detail-value { font-size: 1.1rem; font-weight: 700; }
- 
-        footer { text-align: center; padding: 3rem 0; border-top: 1px solid var(--brd); margin-top: 80px; }
-        footer p { font-size: 0.72rem; color: var(--text3); }
-        footer a { color: var(--teal); text-decoration: none; }
- 
-        /* SKELETON */
-        .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 6px; }
-        @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
- 
-        @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
-        .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease-out, transform 0.65s ease-out; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
- 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.4rem; }
-            .stats-bar { grid-template-columns: repeat(2, 1fr); }
-            .social-grid, .pricing-grid { grid-template-columns: 1fr; }
-            .hero-actions { flex-direction: column; align-items: center; }
-            .games-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-            .game-stats-row { grid-template-columns: repeat(2, 1fr); }
+
+        :root {
+            color-scheme: dark;
+            --bg: #0a0c10;
+            --bg-soft: #11151b;
+            --panel: rgba(255, 255, 255, 0.08);
+            --panel-strong: rgba(255, 255, 255, 0.12);
+            --panel-border: rgba(255, 255, 255, 0.16);
+            --panel-border-strong: rgba(255, 255, 255, 0.26);
+            --text: #f4f7fb;
+            --muted: rgba(244, 247, 251, 0.70);
+            --muted-soft: rgba(244, 247, 251, 0.46);
+            --accent: #9fd3ff;
+            --accent-strong: #d7ecff;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+            --radius-xl: 32px;
+            --radius-lg: 24px;
+            --radius-md: 18px;
+            --radius-sm: 14px;
+            --max-width: 1180px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(129, 186, 255, 0.25), transparent 34%),
+                radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.16), transparent 24%),
+                radial-gradient(circle at bottom right, rgba(111, 138, 179, 0.18), transparent 28%),
+                linear-gradient(180deg, #0f1217 0%, #090b0f 100%);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            background-size: 46px 46px;
+            mask-image: radial-gradient(circle at center, black 42%, transparent 100%);
+            opacity: 0.32;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .shell {
+            position: relative;
+            z-index: 1;
+            width: min(var(--max-width), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .glass {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+            border: 1px solid var(--panel-border);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(26px) saturate(140%);
+            -webkit-backdrop-filter: blur(26px) saturate(140%);
+        }
+
+        .topbar {
+            position: sticky;
+            top: 16px;
+            z-index: 20;
+            margin-top: 16px;
+            border-radius: 999px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .brand-copy small,
+        .eyebrow,
+        .meta-label,
+        .stat-label,
+        .pill,
+        .terms-list strong {
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .brand-copy small {
+            display: block;
+            color: var(--muted-soft);
+            font-size: 0.69rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .brand-copy span {
+            font-size: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-size: 0.92rem;
+            transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text);
+            transform: translateY(-1px);
+        }
+
+        .hero {
+            padding: 84px 0 38px;
+        }
+
+        .hero-panel {
+            border-radius: var(--radius-xl);
+            padding: 42px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-panel::after {
+            content: "";
+            position: absolute;
+            inset: auto -10% -40% auto;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(159, 211, 255, 0.24), transparent 68%);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(290px, 0.75fr);
+            gap: 28px;
+            align-items: end;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--accent-strong);
+            background: rgba(255, 255, 255, 0.06);
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #b5ffd7;
+            box-shadow: 0 0 0 6px rgba(181, 255, 215, 0.12);
+        }
+
+        h1 {
+            margin: 18px 0 16px;
+            font-size: clamp(2.8rem, 7vw, 5.6rem);
+            line-height: 0.94;
+            letter-spacing: -0.06em;
+        }
+
+        .hero-copy p {
+            margin: 0;
+            max-width: 690px;
+            color: var(--muted);
+            font-size: 1.08rem;
+            line-height: 1.72;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 50px;
+            padding: 0 20px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            background: linear-gradient(180deg, rgba(226, 240, 255, 0.94), rgba(186, 220, 249, 0.92));
+            color: #0a1118;
+            box-shadow: 0 16px 40px rgba(159, 211, 255, 0.25);
+        }
+
+        .button-secondary {
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+        }
+
+        .hero-side {
+            display: grid;
+            gap: 14px;
+        }
+
+        .metric-card,
+        .contact-card,
+        .section-card,
+        .game-card,
+        .terms-card {
+            border-radius: var(--radius-lg);
+        }
+
+        .metric-card,
+        .contact-card {
+            padding: 22px;
+        }
+
+        .metric-card {
+            display: grid;
+            gap: 18px;
+        }
+
+        .metric-item {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .metric-item:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .meta-label {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--muted-soft);
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+        }
+
+        .metric-note {
+            color: var(--muted-soft);
+            font-size: 0.88rem;
+            text-align: right;
+        }
+
+        .contact-card p {
+            margin: 8px 0 0;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .mono {
+            font-family: "IBM Plex Mono", monospace;
+        }
+
+        .section {
+            padding: 18px 0 0;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 18px;
+            align-items: end;
+            margin-bottom: 20px;
+        }
+
+        .section-head h2 {
+            margin: 8px 0 0;
+            font-size: clamp(2rem, 4vw, 3rem);
+            letter-spacing: -0.05em;
+        }
+
+        .section-head p {
+            margin: 0;
+            max-width: 560px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .eyebrow-subtle {
+            color: var(--muted-soft);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .game-card {
+            position: relative;
+            overflow: hidden;
+            padding: 24px;
+            min-height: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--panel-border-strong);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.07));
+        }
+
+        .game-card::before {
+            content: "";
+            position: absolute;
+            inset: auto auto -90px -40px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 68%);
+            opacity: 0.8;
+        }
+
+        .game-card.is-blue::before {
+            background: radial-gradient(circle, rgba(121, 180, 255, 0.28), transparent 70%);
+        }
+
+        .game-card.is-gold::before {
+            background: radial-gradient(circle, rgba(255, 222, 148, 0.26), transparent 70%);
+        }
+
+        .card-top,
+        .card-bottom {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+            padding: 9px 12px;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--accent-strong);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .game-card h3 {
+            margin: 18px 0 10px;
+            font-size: 1.72rem;
+            letter-spacing: -0.04em;
+        }
+
+        .game-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.72;
+            max-width: 44ch;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .stat {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.08rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.64rem;
+            color: var(--muted-soft);
+            font-weight: 700;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 28px;
+            font-weight: 700;
+            color: var(--accent-strong);
+        }
+
+        .terms-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+            gap: 20px;
+        }
+
+        .section-card,
+        .terms-card {
+            padding: 28px;
+        }
+
+        .section-card p,
+        .terms-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .terms-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 14px;
+        }
+
+        .terms-list li {
+            padding: 16px 0 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.09);
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .terms-list li:first-child {
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .terms-list strong {
+            display: block;
+            color: var(--text);
+            font-size: 0.7rem;
+            margin-bottom: 7px;
+        }
+
+        .footer {
+            padding: 36px 0 52px;
+            text-align: center;
+            color: var(--muted-soft);
+            font-size: 0.88rem;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity 700ms ease, transform 700ms ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 980px) {
+            .hero-grid,
+            .terms-layout,
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .topbar {
+                border-radius: 28px;
+                padding: 14px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links {
+                width: 100%;
+                gap: 8px;
+            }
+
+            .nav-links a {
+                padding: 8px 12px;
+                font-size: 0.88rem;
+            }
+
+            .hero {
+                padding-top: 56px;
+            }
+
+            .hero-panel,
+            .section-card,
+            .terms-card,
+            .metric-card,
+            .contact-card,
+            .game-card {
+                padding: 22px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-copy p,
+            .section-head p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="bg-orb bg-orb-1"></div>
-    <div class="bg-orb bg-orb-2"></div>
-    <div class="bg-orb bg-orb-3"></div>
- 
-    <nav>
-        <a class="nav-brand" href="#"><img src="https://github.com/Coaler1.png" alt="Coaler1"><span>Coaler1</span></a>
-        <ul class="nav-links">
-            <li><a href="#games">Games</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
- 
-    <main>
-        <section class="hero" id="hero">
-            <div class="hero-av"><img src="https://github.com/Coaler1.png" alt="Coaler1"></div>
-            <div class="hero-badge"><span class="dot"></span> Available for hire</div>
-            <h1>Hey, I'm <span class="gt">Coaler1</span></h1>
-            <p class="hero-sub">Lua scripter building <strong>gameplay systems</strong>, datastores, client-server logic and polished UI for Roblox games.</p>
-            <div class="hero-actions">
-                <a href="#contact" class="btn btn-primary"><i class="fab fa-discord"></i> Hire Me</a>
-                <a href="#games" class="btn btn-ghost"><i class="fas fa-gamepad"></i> View My Work</a>
-            </div>
-        </section>
- 
-        <!-- LIVE STATS -->
-        <div class="stats-bar" id="total-stats">
-            <div class="stat-item"><div class="stat-num c-purple" id="total-games">—</div><div class="stat-lbl">Games</div></div>
-            <div class="stat-item"><div class="stat-num c-teal" id="total-visits">—</div><div class="stat-lbl"><span class="live-dot" style="background:var(--teal)"></span>Total Visits</div></div>
-            <div class="stat-item"><div class="stat-num c-pink" id="total-playing">—</div><div class="stat-lbl"><span class="live-dot" style="background:var(--pink)"></span>Playing Now</div></div>
-            <div class="stat-item"><div class="stat-num c-gold" id="total-favs">—</div><div class="stat-lbl">Total Favorites</div></div>
-        </div>
- 
-        <!-- GAMES -->
-        <section class="section fade-in" id="games">
-            <div class="section-label">Portfolio</div>
-            <h2 class="section-title">Games I've Worked On</h2>
-            <p class="section-desc">Live stats pulled directly from Roblox — updated every page load.</p>
-            <div class="games-grid" id="games-container">
-                <!-- skeleton placeholders -->
-                <div class="game-card" style="pointer-events:none"><div class="game-thumb-wrap skeleton" style="aspect-ratio:16/9"></div><div class="game-info"><div class="skeleton" style="width:60px;height:16px;margin-bottom:8px"></div><div class="skeleton" style="width:180px;height:20px;margin-bottom:12px"></div><div class="skeleton" style="width:100%;height:10px;margin-bottom:6px"></div><div class="skeleton" style="width:80%;height:10px;margin-bottom:16px"></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px"><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div></div></div></div>
-                <div class="game-card" style="pointer-events:none"><div class="game-thumb-wrap skeleton" style="aspect-ratio:16/9"></div><div class="game-info"><div class="skeleton" style="width:60px;height:16px;margin-bottom:8px"></div><div class="skeleton" style="width:180px;height:20px;margin-bottom:12px"></div><div class="skeleton" style="width:100%;height:10px;margin-bottom:6px"></div><div class="skeleton" style="width:80%;height:10px;margin-bottom:16px"></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px"><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div><div class="skeleton" style="height:50px;border-radius:10px"></div></div></div></div>
-            </div>
-            <a href="showcase.html" class="showcase-cta"><i class="fas fa-play-circle"></i> &nbsp;Watch Full Showcase Videos</a>
-        </section>
- 
-        <!-- SKILLS -->
-        <section class="section fade-in" id="skills">
-            <div class="section-label">Expertise</div>
-            <h2 class="section-title">What I Do</h2>
-            <p class="section-desc">Specialized Roblox Lua development — clean, secure, performant.</p>
-            <div class="skills-grid">
-                <div class="skill-card"><div class="skill-icon purple"><i class="fas fa-gamepad"></i></div><h3>Gameplay Systems</h3><p>Pets, shops, abilities, rebirth loops — complete game mechanics from scratch.</p></div>
-                <div class="skill-card"><div class="skill-icon teal"><i class="fas fa-shield-halved"></i></div><h3>Client-Server Logic</h3><p>Secure remote architecture with server-side validation and anti-exploit patterns.</p></div>
-                <div class="skill-card"><div class="skill-icon pink"><i class="fas fa-database"></i></div><h3>Datastores & Saving</h3><p>Reliable, session-locked datastores with auto-save, retry logic & data migration.</p></div>
-                <div class="skill-card"><div class="skill-icon gold"><i class="fas fa-wand-magic-sparkles"></i></div><h3>UI & Animations</h3><p>Dynamic interfaces with smooth tweens, responsive layouts and polished UX.</p></div>
-            </div>
-        </section>
- 
-        <!-- PRICING -->
-        <section class="section fade-in" id="pricing">
-            <div class="section-label">Rates</div>
-            <h2 class="section-title">Pricing</h2>
-            <p class="section-desc">Transparent pricing — no hidden fees.</p>
-            <div class="pricing-grid">
-                <div class="price-card"><div class="price-label">Hourly Rate</div><div class="price-amount c-teal">€15</div><div class="price-sub">~$16 · ~R$4,500</div></div>
-                <div class="price-card featured"><div class="price-label">Min. Project Fee</div><div class="price-amount c-purple">€35</div><div class="price-sub">~$38 · ~R$10,000</div></div>
-                <div class="price-card"><div class="price-label">Custom Quote</div><div class="price-amount c-gold" style="font-size:1.6rem">On Request</div><div class="price-sub">For larger projects</div></div>
-            </div>
-        </section>
- 
-        <!-- HOW I WORK -->
-        <section class="section fade-in">
-            <div class="section-label">Process</div>
-            <h2 class="section-title">How I Work</h2>
-            <div class="workflow-list">
-                <div class="workflow-item"><div class="workflow-num c1">01</div><span>Clear communication — no guessing, no ghosting</span></div>
-                <div class="workflow-item"><div class="workflow-num c2">02</div><span>Fast delivery with regular progress updates</span></div>
-                <div class="workflow-item"><div class="workflow-num c3">03</div><span>Clean, readable, non-spaghetti code</span></div>
-                <div class="workflow-item"><div class="workflow-num c4">04</div><span>I fix problems instead of hiding them</span></div>
-                <div class="workflow-item"><div class="workflow-num c5">05</div><span>Payment upon completion — you see results first</span></div>
-            </div>
-        </section>
- 
-        <!-- CONTACT -->
-        <section class="section fade-in" id="contact">
-            <div class="section-label">Connect</div>
-            <h2 class="section-title">Get in Touch</h2>
-            <p class="section-desc">Ready to bring your game idea to life? Hit me up.</p>
-            <div class="social-grid">
-                <a href="https://github.com/Coaler1" target="_blank" class="social-card"><i class="fab fa-github" style="color:var(--lilac)"></i><span class="social-name">GitHub</span><span class="social-handle">Coaler1</span></a>
-                <a href="https://twitter.com/Coaler1Dev" target="_blank" class="social-card"><i class="fab fa-twitter" style="color:#1d9bf0"></i><span class="social-name">Twitter</span><span class="social-handle">@Coaler1Dev</span></a>
-                <div class="social-card" style="cursor:default"><i class="fab fa-discord" style="color:#5865f2"></i><span class="social-name">Discord</span><span class="social-handle">coaler1</span></div>
-            </div>
-            <div class="details-grid">
-                <div class="detail-item"><div class="detail-label">Payment</div><div class="detail-value c-teal">Upon Completion</div></div>
-                <div class="detail-item"><div class="detail-label">Contact Handle</div><div class="detail-value c-purple">@coaler1</div></div>
-            </div>
-        </section>
-    </main>
- 
-    <footer><p>&copy; 2024 <a href="#">Coaler1</a> &middot; Lua Scripter for Hire</p></footer>
- 
-    <script>
-    /*
-     * ╔═══════════════════════════════════════════════════════════╗
-     * ║  CONFIGURE YOUR GAMES HERE                               ║
-     * ║                                                           ║
-     * ║  universeId → find at create.roblox.com (Copy Universe ID)║
-     * ║  placeId    → the number in your game's Roblox URL        ║
-     * ║                                                           ║
-     * ║  Everything else (name, icon, visits, playing, favorites, ║
-     * ║  likes/dislikes) is fetched LIVE from the Roblox API.     ║
-     * ╚═══════════════════════════════════════════════════════════╝
-     */
- 
-    const GAMES = [
-        {
-            universeId: "DEINE_UNIVERSE_ID_1",   // ← Ersetze mit deiner echten Universe ID
-            placeId:    "102196676245720",       // ← Ersetze mit deiner echten Place ID
-            tag: "Game",
-            tagColor: "purple",
-            description: "Custom scripted template inspired by \"Poison Treats\" — full gameplay loop, UI & datastores.",
-            videoId: "o0llXai63nU"
-        },
-        {
-            universeId: "9481613201",   // ← Ersetze mit deiner echten Universe ID
-            placeId:    "110296121606017",       // ← Ersetze mit deiner echten Place ID
-            tag: "Game",
-            tagColor: "teal",
-            description: "Custom scripted template inspired by \"Build a Scam Empire\" — rebirth system, shop & economy.",
-            videoId: "R2Rgj9Bdnpc"
-        },
-        {
-            universeId: "DEINE_UNIVERSE_ID_1",   // ← Ersetze mit deiner echten Universe ID
-            placeId:    "119916288759269",       // ← Ersetze mit deiner echten Place ID
-            tag: "Template",
-            tagColor: "teal",
-            description: "Custom scripted template inspired by \"Build a Scam Empire\" — rebirth system, shop & economy.",
-            videoId: "R2Rgj9Bdnpc"
-        },
-    ];
- 
-    // ── CORS proxy fallback chain ──
-    const PROXIES = [
-        url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-        url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-        url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
-    ];
- 
-    async function proxyFetch(url) {
-        for (const mkUrl of PROXIES) {
-            try {
-                const r = await fetch(mkUrl(url), { signal: AbortSignal.timeout(8000) });
-                if (r.ok) return JSON.parse(await r.text());
-            } catch {}
-        }
-        return null;
-    }
- 
-    function fmt(n) {
-        if (n == null) return '—';
-        if (n >= 1e6) return (n/1e6).toFixed(1).replace('.0','') + 'M';
-        if (n >= 1e3) return (n/1e3).toFixed(1).replace('.0','') + 'K';
-        return n.toLocaleString();
-    }
- 
-    function animNum(el, target) {
-        const dur = 1800, t0 = performance.now();
-        (function tick(now) {
-            const p = Math.min((now-t0)/dur, 1);
-            el.textContent = fmt(Math.round((1-Math.pow(1-p,3)) * target));
-            if (p < 1) requestAnimationFrame(tick);
-        })(t0);
-    }
- 
-    function card(g, d, thumb) {
-        const v = d?.visits??0, p = d?.playing??0, f = d?.favoritedCount??0;
-        const name = d?.name ?? 'Loading…';
-        const up = d?.totalUpVotes??0, dn = d?.totalDownVotes??0;
-        const rat = (up+dn)>0 ? Math.round(up/(up+dn)*100)+'%' : '—';
-        const img = thumb || `https://img.youtube.com/vi/${g.videoId}/hqdefault.jpg`;
-        return `
-        <a href="https://www.roblox.com/games/${g.placeId}" target="_blank" class="game-card">
-            <div class="game-thumb-wrap">
-                <img src="${img}" alt="${name}" loading="lazy">
-                <div class="game-live-badge"><span class="dot"></span>${fmt(p)} playing</div>
-            </div>
-            <div class="game-info">
-                <span class="game-tag ${g.tagColor}">${g.tag}</span>
-                <h3>${name}</h3>
-                <p class="game-desc">${g.description}</p>
-                <div class="game-stats-row">
-                    <div class="game-stat"><div class="game-stat-val c-teal">${fmt(v)}</div><div class="game-stat-lbl">Visits</div></div>
-                    <div class="game-stat"><div class="game-stat-val c-pink">${fmt(p)}</div><div class="game-stat-lbl">Playing</div></div>
-                    <div class="game-stat"><div class="game-stat-val c-gold">${fmt(f)}</div><div class="game-stat-lbl">Favs</div></div>
-                    <div class="game-stat"><div class="game-stat-val c-purple">${rat}</div><div class="game-stat-lbl">Rating</div></div>
+    <div class="shell">
+        <header class="topbar glass">
+            <a class="brand" href="#top">
+                <span class="brand-mark">
+                    <img src="https://github.com/Coaler1.png" alt="Coaler1 profile picture">
+                </span>
+                <span class="brand-copy">
+                    <small>Roblox Developer</small>
+                    <span>Coaler1</span>
+                </span>
+            </a>
+            <nav class="nav-links" aria-label="Primary navigation">
+                <a href="#games">Games</a>
+                <a href="#terms">Terms</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+
+        <main id="top">
+            <section class="hero reveal">
+                <div class="hero-panel glass">
+                    <div class="hero-grid">
+                        <div class="hero-copy">
+                            <div class="eyebrow">
+                                <span class="status-dot"></span>
+                                Available for Roblox commissions
+                            </div>
+                            <h1>Minimal, polished Roblox development with a professional delivery flow.</h1>
+                            <p>
+                                I build clean Roblox systems, production-ready gameplay loops, and structured code that is easy to maintain.
+                                This portfolio focuses on shipped game work only, with a straightforward process for commissions, payments, and final delivery.
+                            </p>
+                            <div class="hero-actions">
+                                <a class="button button-primary" href="#games">View Games</a>
+                                <a class="button button-secondary" href="#terms">Read Terms</a>
+                            </div>
+                        </div>
+
+                        <div class="hero-side">
+                            <aside class="metric-card glass" aria-label="Commission highlights">
+                                <div class="metric-item">
+                                    <div>
+                                        <span class="meta-label">Focus</span>
+                                        <div class="metric-value">Gameplay Systems</div>
+                                    </div>
+                                    <div class="metric-note">LuaU<br>UI<br>Economy</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div>
+                                        <span class="meta-label">Portfolio</span>
+                                        <div class="metric-value">2 Featured Games</div>
+                                    </div>
+                                    <div class="metric-note">Direct Roblox<br>links included</div>
+                                </div>
+                                <div class="metric-item">
+                                    <div>
+                                        <span class="meta-label">Delivery</span>
+                                        <div class="metric-value">After Full Payment</div>
+                                    </div>
+                                    <div class="metric-note">Release files only<br>after payment clears</div>
+                                </div>
+                            </aside>
+
+                            <aside class="contact-card glass" id="contact">
+                                <span class="meta-label">Contact</span>
+                                <div class="metric-value">Discord: <span class="mono">coaler1</span></div>
+                                <p>
+                                    For serious inquiries, send the game scope, requested systems, deadline, and budget.
+                                    Clear briefs lead to faster quotes and cleaner delivery.
+                                </p>
+                            </aside>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </a>`;
-    }
- 
-    async function init() {
-        const ids = GAMES.map(g=>g.universeId).join(',');
-        const [api, thumbs] = await Promise.all([
-            proxyFetch(`https://games.roblox.com/v1/games?universeIds=${ids}`),
-            proxyFetch(`https://thumbnails.roblox.com/v1/games/icons?universeIds=${ids}&returnPolicy=PlaceHolder&size=512x512&format=Png&isCircular=false`)
-        ]);
- 
-        let tV=0, tP=0, tF=0, html='';
-        for (const g of GAMES) {
-            const d = api?.data?.find(x=>String(x.id)===g.universeId) || null;
-            const t = thumbs?.data?.find(x=>String(x.targetId)===g.universeId)?.imageUrl || null;
-            if(d){ tV+=d.visits||0; tP+=d.playing||0; tF+=d.favoritedCount||0; }
-            html += card(g, d, t);
-        }
-        document.getElementById('games-container').innerHTML = html;
- 
-        animNum(document.getElementById('total-games'), GAMES.length);
-        animNum(document.getElementById('total-visits'), tV);
-        animNum(document.getElementById('total-playing'), tP);
-        animNum(document.getElementById('total-favs'), tF);
-    }
- 
-    // scroll reveal
-    const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), {threshold:0.08});
-    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
- 
-    // smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'});
-    }));
- 
-    init();
+            </section>
+
+            <section class="section reveal" id="games">
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow-subtle">Featured work</div>
+                        <h2>Games</h2>
+                    </div>
+                    <p>
+                        A simplified portfolio layout focused only on Roblox game work, without extra showcase pages or filler sections.
+                    </p>
+                </div>
+
+                <div class="games-grid">
+                    <a class="game-card glass is-blue" href="https://www.roblox.com/games/106539620555081/Drop-My-Brainrot" target="_blank" rel="noreferrer">
+                        <div class="card-top">
+                            <span class="pill">Live Roblox Experience</span>
+                            <h3>Drop My Brainrot</h3>
+                            <p>
+                                A fast, playful Roblox experience presented here as direct shipped work.
+                                The card links straight to the live game page so clients can review the result immediately.
+                            </p>
+                        </div>
+                        <div class="card-bottom">
+                            <div class="stats">
+                                <div class="stat">
+                                    <span class="stat-value">Roblox</span>
+                                    <span class="stat-label">Platform</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">Live</span>
+                                    <span class="stat-label">Status</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">Gameplay</span>
+                                    <span class="stat-label">Category</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value mono">106539620555081</span>
+                                    <span class="stat-label">Place ID</span>
+                                </div>
+                            </div>
+                            <div class="card-link">Open Game Page</div>
+                        </div>
+                    </a>
+
+                    <a class="game-card glass is-gold" href="https://www.roblox.com/games/110132375516345/Drop-a-Lucky-Block" target="_blank" rel="noreferrer">
+                        <div class="card-top">
+                            <span class="pill">Live Roblox Experience</span>
+                            <h3>Drop a Lucky Block</h3>
+                            <p>
+                                A second featured experience shown in the same polished format, keeping the portfolio concise,
+                                professional, and centered around real game outputs instead of extra pages.
+                            </p>
+                        </div>
+                        <div class="card-bottom">
+                            <div class="stats">
+                                <div class="stat">
+                                    <span class="stat-value">Roblox</span>
+                                    <span class="stat-label">Platform</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">Live</span>
+                                    <span class="stat-label">Status</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">Systems</span>
+                                    <span class="stat-label">Category</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value mono">110132375516345</span>
+                                    <span class="stat-label">Place ID</span>
+                                </div>
+                            </div>
+                            <div class="card-link">Open Game Page</div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section reveal" id="terms">
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow-subtle">Professional terms</div>
+                        <h2>Terms of Service</h2>
+                    </div>
+                    <p>
+                        Clear terms help avoid misunderstandings and make the commission flow feel more serious for clients.
+                    </p>
+                </div>
+
+                <div class="terms-layout">
+                    <div class="section-card glass">
+                        <p>
+                            By commissioning development work, the client agrees to the pricing, scope, and delivery conditions listed below.
+                            Final files, source code, or editable project assets are not transferred until the agreed payment has been completed in full.
+                            If payment is made through Roblox gamepasses or other Roblox marketplace methods, the client is responsible for covering Roblox tax so the agreed net amount is received.
+                        </p>
+                    </div>
+
+                    <div class="terms-card glass">
+                        <ul class="terms-list">
+                            <li>
+                                <strong>Payment Method</strong>
+                                Payments sent through Roblox gamepasses must include enough extra Robux to cover Roblox marketplace tax.
+                            </li>
+                            <li>
+                                <strong>Final Delivery</strong>
+                                The finished product is delivered only after full payment has been received and confirmed.
+                            </li>
+                            <li>
+                                <strong>Scope Changes</strong>
+                                New features or revisions outside the agreed scope may require a new quote or additional payment.
+                            </li>
+                            <li>
+                                <strong>Client Responsibility</strong>
+                                The client must provide a clear brief, required assets, and access details needed for the requested work.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            Coaler1 Roblox Developer Portfolio
+        </footer>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                    }
+                });
+            },
+            { threshold: 0.14 }
+        );
+
+        document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", (event) => {
+                const target = document.querySelector(anchor.getAttribute("href"));
+                if (!target) {
+                    return;
+                }
+
+                event.preventDefault();
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        });
     </script>
 </body>
 </html>
