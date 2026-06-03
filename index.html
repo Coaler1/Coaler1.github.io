@@ -44,24 +44,23 @@
             font-family: "Plus Jakarta Sans", sans-serif;
             color: var(--text);
             background:
-                radial-gradient(circle at top left, rgba(129, 186, 255, 0.25), transparent 34%),
-                radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.16), transparent 24%),
-                radial-gradient(circle at bottom right, rgba(111, 138, 179, 0.18), transparent 28%),
+                radial-gradient(circle at top left, rgba(129, 186, 255, 0.18), transparent 34%),
+                radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.11), transparent 24%),
+                radial-gradient(circle at bottom right, rgba(111, 138, 179, 0.14), transparent 28%),
                 linear-gradient(180deg, #0f1217 0%, #090b0f 100%);
             overflow-x: hidden;
         }
 
         body::before {
             content: "";
-            position: fixed;
+            position: absolute;
             inset: 0;
             pointer-events: none;
             background:
                 linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
             background-size: 46px 46px;
-            mask-image: radial-gradient(circle at center, black 42%, transparent 100%);
-            opacity: 0.32;
+            opacity: 0.18;
         }
 
         a {
@@ -84,13 +83,12 @@
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
             border: 1px solid var(--panel-border);
             box-shadow: var(--shadow);
-            backdrop-filter: blur(26px) saturate(140%);
-            -webkit-backdrop-filter: blur(26px) saturate(140%);
+            backdrop-filter: blur(14px) saturate(120%);
+            -webkit-backdrop-filter: blur(14px) saturate(120%);
         }
 
         .topbar {
-            position: sticky;
-            top: 16px;
+            position: relative;
             z-index: 20;
             margin-top: 16px;
             border-radius: 999px;
@@ -171,6 +169,7 @@
             padding: 42px;
             position: relative;
             overflow: hidden;
+            perspective: 1000px;
         }
 
         .hero-panel::after {
@@ -191,6 +190,11 @@
             align-items: end;
         }
 
+        .hero-copy {
+            position: relative;
+            z-index: 2;
+        }
+
         .eyebrow {
             display: inline-flex;
             align-items: center;
@@ -208,8 +212,8 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #b5ffd7;
-            box-shadow: 0 0 0 6px rgba(181, 255, 215, 0.12);
+            background: var(--accent-strong);
+            box-shadow: 0 0 0 6px rgba(215, 236, 255, 0.12);
         }
 
         h1 {
@@ -266,6 +270,63 @@
         .hero-side {
             display: grid;
             gap: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .roblox-stage {
+            position: absolute;
+            right: clamp(18px, 6vw, 72px);
+            top: 32px;
+            width: 190px;
+            height: 190px;
+            transform-style: preserve-3d;
+            pointer-events: none;
+            opacity: 0.95;
+            animation: stageFloat 6s ease-in-out infinite;
+        }
+
+        .cube {
+            position: absolute;
+            inset: 38px;
+            transform-style: preserve-3d;
+            animation: cubeSpin 10s linear infinite;
+        }
+
+        .cube span {
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            background: linear-gradient(145deg, rgba(159, 211, 255, 0.3), rgba(215, 236, 255, 0.08));
+            box-shadow: inset 0 0 36px rgba(255, 255, 255, 0.08), 0 24px 60px rgba(0, 0, 0, 0.24);
+        }
+
+        .cube span:nth-child(1) { transform: rotateY(0deg) translateZ(42px); }
+        .cube span:nth-child(2) { transform: rotateY(90deg) translateZ(42px); }
+        .cube span:nth-child(3) { transform: rotateY(180deg) translateZ(42px); }
+        .cube span:nth-child(4) { transform: rotateY(270deg) translateZ(42px); }
+        .cube span:nth-child(5) { transform: rotateX(90deg) translateZ(42px); }
+        .cube span:nth-child(6) { transform: rotateX(-90deg) translateZ(42px); }
+
+        .orbit-ring {
+            position: absolute;
+            inset: 18px;
+            border: 1px solid rgba(215, 236, 255, 0.22);
+            border-radius: 50%;
+            transform: rotateX(68deg) rotateZ(-18deg);
+            animation: ringSpin 9s linear infinite;
+        }
+
+        .orbit-ring::after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            top: -6px;
+            left: calc(50% - 6px);
+            background: var(--accent-strong);
+            box-shadow: 0 0 20px rgba(215, 236, 255, 0.7);
         }
 
         .metric-card,
@@ -381,6 +442,45 @@
             gap: 16px;
         }
 
+        .pricing-toolbar {
+            display: inline-flex;
+            gap: 6px;
+            padding: 6px;
+            margin: 0 0 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .currency-button,
+        .copy-button {
+            appearance: none;
+            border: 0;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 800;
+            letter-spacing: 0;
+        }
+
+        .currency-button {
+            min-width: 74px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            color: var(--muted);
+            background: transparent;
+            transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+        }
+
+        .currency-button:hover {
+            color: var(--text);
+            transform: translateY(-1px);
+        }
+
+        .currency-button.is-active {
+            color: #0a1118;
+            background: linear-gradient(180deg, rgba(226, 240, 255, 0.96), rgba(186, 220, 249, 0.92));
+        }
+
         .price-card {
             padding: 24px;
         }
@@ -400,9 +500,18 @@
         }
 
         .price-value {
+            color: inherit;
+            display: block;
             font-size: 2rem;
             font-weight: 800;
             margin-bottom: 10px;
+        }
+
+        .pricing-note {
+            margin: 14px 0 0;
+            color: var(--muted-soft);
+            font-size: 0.82rem;
+            line-height: 1.55;
         }
 
         .price-card p {
@@ -416,16 +525,54 @@
             position: relative;
             overflow: hidden;
             padding: 24px;
-            min-height: 310px;
+            min-height: 440px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             text-decoration: none;
             transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .game-thumb {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            margin-bottom: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .game-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 500ms ease;
+        }
+
+        .game-card:hover .game-thumb img {
+            transform: scale(1.04);
+        }
+
+        .game-thumb video,
+        .game-thumb iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .game-thumb video {
+            object-fit: cover;
+            background: #05070a;
         }
 
         .game-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
             border-color: var(--panel-border-strong);
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.07));
         }
@@ -526,6 +673,33 @@
             gap: 16px;
         }
 
+        .status-strip,
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .status-card {
+            padding: 24px;
+            border-radius: var(--radius-lg);
+        }
+
+        .status-value {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            font-size: 1.45rem;
+            font-weight: 800;
+        }
+
+        .status-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
         .section-card,
         .terms-card,
         .contact-panel {
@@ -578,6 +752,20 @@
             border-color: var(--panel-border-strong);
         }
 
+        .copy-button {
+            min-height: 44px;
+            margin-top: 18px;
+            padding: 0 16px;
+            border-radius: 999px;
+            color: #0a1118;
+            background: linear-gradient(180deg, rgba(226, 240, 255, 0.96), rgba(186, 220, 249, 0.92));
+            transition: transform 180ms ease;
+        }
+
+        .copy-button:hover {
+            transform: translateY(-2px);
+        }
+
         .footer {
             padding: 36px 0 52px;
             text-align: center;
@@ -589,16 +777,37 @@
             opacity: 0;
             transform: translateY(26px);
             transition: opacity 700ms ease, transform 700ms ease;
+            will-change: opacity, transform;
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 620px;
         }
 
         .reveal.is-visible {
             opacity: 1;
             transform: translateY(0);
+            will-change: auto;
+        }
+
+        @keyframes cubeSpin {
+            from { transform: rotateX(-18deg) rotateY(0deg); }
+            to { transform: rotateX(-18deg) rotateY(360deg); }
+        }
+
+        @keyframes ringSpin {
+            from { transform: rotateX(68deg) rotateZ(-18deg); }
+            to { transform: rotateX(68deg) rotateZ(342deg); }
+        }
+
+        @keyframes stageFloat {
+            0%, 100% { transform: translate3d(0, 0, 0) rotateZ(-2deg); }
+            50% { transform: translate3d(0, -12px, 0) rotateZ(2deg); }
         }
 
         @media (max-width: 980px) {
             .hero-grid,
             .terms-grid,
+            .faq-grid,
+            .status-strip,
             .pricing-grid,
             .contact-grid,
             .games-grid {
@@ -607,6 +816,11 @@
         }
 
         @media (max-width: 760px) {
+            .glass {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+
             .topbar {
                 border-radius: 28px;
                 padding: 14px;
@@ -639,6 +853,15 @@
                 padding: 22px;
             }
 
+            .roblox-stage {
+                position: relative;
+                right: auto;
+                top: auto;
+                width: 150px;
+                height: 150px;
+                margin: 24px auto 0;
+            }
+
             .stats {
                 grid-template-columns: 1fr;
             }
@@ -646,6 +869,21 @@
             .hero-copy p,
             .section-head p {
                 font-size: 1rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 1ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 1ms !important;
             }
         }
     </style>
@@ -666,6 +904,7 @@
                 <a href="#games">Games</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#terms">Terms</a>
+                <a href="#faq">FAQ</a>
                 <a href="#contact">Contact</a>
             </nav>
         </header>
@@ -673,6 +912,17 @@
         <main id="top">
             <section class="hero reveal">
                 <div class="hero-panel glass">
+                    <div class="roblox-stage" aria-hidden="true">
+                        <div class="orbit-ring"></div>
+                        <div class="cube">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
                     <div class="hero-grid">
                         <div class="hero-copy">
                             <div class="eyebrow">
@@ -727,6 +977,25 @@
                 </div>
             </section>
 
+            <section class="section reveal" id="status">
+                <div class="status-strip">
+                    <div class="status-card glass">
+                        <span class="meta-label">Commission Status</span>
+                        <div class="status-value">
+                            <span class="status-dot"></span>
+                            Open for Commissions
+                        </div>
+                        <p>Currently available for small systems, bug fixes, UI work, and custom Roblox gameplay features.</p>
+                    </div>
+
+                    <div class="status-card glass">
+                        <span class="meta-label">Best Fit</span>
+                        <div class="status-value">Scripted Systems</div>
+                        <p>Shops, gamepasses, economy logic, leaderstats, datastores, rewards, and gameplay loops.</p>
+                    </div>
+                </div>
+            </section>
+
             <section class="section reveal" id="games">
                 <div class="section-head">
                     <div>
@@ -741,6 +1010,9 @@
                 <div class="games-grid">
                     <a class="game-card glass is-blue" href="https://www.roblox.com/games/106539620555081/Drop-My-Brainrot" target="_blank" rel="noreferrer">
                         <div class="card-top">
+                            <div class="game-thumb">
+                                <img src="DropMyBrainrot.png" alt="Drop My Brainrot Roblox thumbnail">
+                            </div>
                             <span class="pill">Live Roblox Experience</span>
                             <h3>Drop My Brainrot</h3>
                             <p>
@@ -766,12 +1038,15 @@
                         </div>
                     </a>
 
-                    <a class="game-card glass is-gold" href="https://www.roblox.com/games/110132375516345/Drop-a-Lucky-Block" target="_blank" rel="noreferrer">
+                    <article class="game-card glass is-gold">
                         <div class="card-top">
-                            <span class="pill">Live Roblox Experience</span>
-                            <h3>Drop a Lucky Block</h3>
+                            <div class="game-thumb">
+                                <video controls preload="metadata" src="Empire.mp4"></video>
+                            </div>
+                            <span class="pill">Template Showcase</span>
+                            <h3>Build an Empire Template</h3>
                             <p>
-                                Lucky-block style Roblox game with systems-driven gameplay.
+                                Playable preview video for an empire-building Roblox template.
                             </p>
                         </div>
                         <div class="card-bottom">
@@ -781,17 +1056,47 @@
                                     <span class="stat-label">Platform</span>
                                 </div>
                                 <div class="stat">
-                                    <span class="stat-value">Live</span>
+                                    <span class="stat-value">Video</span>
                                     <span class="stat-label">Status</span>
                                 </div>
                                 <div class="stat">
-                                    <span class="stat-value">Systems</span>
+                                    <span class="stat-value">Template</span>
                                     <span class="stat-label">Category</span>
                                 </div>
                             </div>
-                            <div class="card-link">Open Game Page</div>
+                            <div class="card-link">Watch Preview</div>
                         </div>
-                    </a>
+                    </article>
+
+                    <article class="game-card glass is-gold">
+                        <div class="card-top">
+                            <div class="game-thumb">
+                                <video controls preload="metadata" src="Poison.mp4"></video>
+                            </div>
+                            <span class="pill">Template Showcase</span>
+                            <h3>Poison Template</h3>
+                            <p>
+                                Playable preview video for a poison-themed Roblox template.
+                            </p>
+                        </div>
+                        <div class="card-bottom">
+                            <div class="stats">
+                                <div class="stat">
+                                    <span class="stat-value">Roblox</span>
+                                    <span class="stat-label">Platform</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">Video</span>
+                                    <span class="stat-label">Status</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">Template</span>
+                                    <span class="stat-label">Category</span>
+                                </div>
+                            </div>
+                            <div class="card-link">Watch Preview</div>
+                        </div>
+                    </article>
                 </div>
             </section>
 
@@ -806,25 +1111,34 @@
                     </p>
                 </div>
 
+                <div class="pricing-toolbar" aria-label="Currency selector">
+                    <button class="currency-button is-active" type="button" data-currency="eur">EUR</button>
+                    <button class="currency-button" type="button" data-currency="usd">USD</button>
+                    <button class="currency-button" type="button" data-currency="robux">Robux</button>
+                </div>
+
                 <div class="pricing-grid">
                     <div class="price-card glass">
                         <div class="price-label">Hourly</div>
-                        <div class="price-value">15 EUR</div>
+                        <div class="price-value" data-eur="15 EUR" data-usd="17.44 USD" data-robux="4.6K Robux">15 EUR</div>
                         <p>Small tasks, fixes, UI work, balancing.</p>
                     </div>
 
                     <div class="price-card glass is-featured">
                         <div class="price-label">Minimum Project</div>
-                        <div class="price-value">35 EUR</div>
+                        <div class="price-value" data-eur="35 EUR" data-usd="40.69 USD" data-robux="10.7K Robux">35 EUR</div>
                         <p>Base price for custom scripted systems.</p>
                     </div>
 
                     <div class="price-card glass">
                         <div class="price-label">Custom Quote</div>
-                        <div class="price-value">On Request</div>
+                        <div class="price-value" data-eur="On Request" data-usd="Custom Quote" data-robux="Robux by quote">On Request</div>
                         <p>Full loops, larger systems, long-term work.</p>
                     </div>
                 </div>
+                <p class="pricing-note">
+                    Robux estimates use the regular DevEx rate of 0.0038 USD per earned Robux and an approximate 1 EUR = 1.1627 USD exchange rate.
+                </p>
             </section>
 
             <section class="section reveal" id="terms">
@@ -861,6 +1175,40 @@
                 </div>
             </section>
 
+            <section class="section reveal" id="faq">
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow-subtle">Questions</div>
+                        <h2>FAQ</h2>
+                    </div>
+                    <p>
+                        Quick answers before starting a commission.
+                    </p>
+                </div>
+
+                <div class="faq-grid">
+                    <div class="terms-card glass">
+                        <h3>Can I pay with Robux?</h3>
+                        <p>Yes. Robux prices are based on DevEx value, and gamepass payments must cover Roblox tax.</p>
+                    </div>
+
+                    <div class="terms-card glass">
+                        <h3>When do I get the files?</h3>
+                        <p>The final product and source files are delivered after full payment has cleared.</p>
+                    </div>
+
+                    <div class="terms-card glass">
+                        <h3>Do you fix bugs after delivery?</h3>
+                        <p>Small scoped fixes are included. New features or bigger changes need a new quote.</p>
+                    </div>
+
+                    <div class="terms-card glass">
+                        <h3>What should I send first?</h3>
+                        <p>Send the idea, budget, deadline, examples, needed systems, and any assets or references.</p>
+                    </div>
+                </div>
+            </section>
+
             <section class="section reveal" id="contact">
                 <div class="section-head">
                     <div>
@@ -877,6 +1225,7 @@
                         <span class="meta-label">Discord</span>
                         <h3 class="mono">coaler1</h3>
                         <p>Best place for quotes, commission details, and progress updates.</p>
+                        <button class="copy-button" type="button" data-copy="coaler1">Copy Discord</button>
                     </div>
 
                     <a class="contact-panel contact-link glass" href="https://github.com/Coaler1" target="_blank" rel="noreferrer">
@@ -905,6 +1254,7 @@
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("is-visible");
+                        observer.unobserve(entry.target);
                     }
                 });
             },
@@ -913,15 +1263,41 @@
 
         document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
 
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-            anchor.addEventListener("click", (event) => {
-                const target = document.querySelector(anchor.getAttribute("href"));
-                if (!target) {
-                    return;
+        document.querySelectorAll(".currency-button").forEach((button) => {
+            button.addEventListener("click", () => {
+                const currency = button.dataset.currency;
+
+                document.querySelectorAll(".currency-button").forEach((item) => {
+                    item.classList.toggle("is-active", item === button);
+                });
+
+                document.querySelectorAll(".price-value").forEach((price) => {
+                    price.textContent = price.dataset[currency];
+                });
+            });
+        });
+
+        document.querySelectorAll(".copy-button").forEach((button) => {
+            button.addEventListener("click", async () => {
+                const value = button.dataset.copy;
+                const originalText = button.textContent;
+
+                try {
+                    await navigator.clipboard.writeText(value);
+                    button.textContent = "Copied";
+                } catch (error) {
+                    const tempInput = document.createElement("input");
+                    tempInput.value = value;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand("copy");
+                    tempInput.remove();
+                    button.textContent = "Copied";
                 }
 
-                event.preventDefault();
-                target.scrollIntoView({ behavior: "smooth", block: "start" });
+                window.setTimeout(() => {
+                    button.textContent = originalText;
+                }, 1600);
             });
         });
     </script>
