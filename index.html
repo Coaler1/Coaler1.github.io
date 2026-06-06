@@ -674,10 +674,50 @@
         }
 
         .status-strip,
-        .faq-grid {
+        .faq-grid,
+        .reviews-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 16px;
+        }
+
+        .review-card {
+            padding: 24px;
+            border-radius: var(--radius-lg);
+        }
+
+        .review-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .review-avatar {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.08);
+            object-fit: cover;
+        }
+
+        .review-name {
+            margin: 0 0 4px;
+            font-size: 1rem;
+            font-weight: 800;
+        }
+
+        .review-stars {
+            color: var(--accent-strong);
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+        }
+
+        .review-text {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
         }
 
         .status-card {
@@ -807,6 +847,7 @@
             .hero-grid,
             .terms-grid,
             .faq-grid,
+            .reviews-grid,
             .status-strip,
             .pricing-grid,
             .contact-grid,
@@ -902,6 +943,7 @@
             </a>
             <nav class="nav-links" aria-label="Primary navigation">
                 <a href="#games">Games</a>
+                <a href="#reviews">Reviews</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#terms">Terms</a>
                 <a href="#faq">FAQ</a>
@@ -1002,9 +1044,6 @@
                         <div class="eyebrow-subtle">Featured work</div>
                         <h2>Games</h2>
                     </div>
-                    <p>
-                        Live Roblox projects.
-                    </p>
                 </div>
 
                 <div class="games-grid">
@@ -1100,15 +1139,27 @@
                 </div>
             </section>
 
+            <section class="section reveal" id="reviews">
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow-subtle">Client Feedback</div>
+                        <h2>Reviews</h2>
+                    </div>
+                </div>
+
+                <div class="reviews-grid" id="reviewsGrid">
+                    <div class="review-card glass">
+                        <p class="review-text">Loading reviews...</p>
+                    </div>
+                </div>
+            </section>
+
             <section class="section reveal" id="pricing">
                 <div class="section-head">
                     <div>
                         <div class="eyebrow-subtle">Rates</div>
                         <h2>Pricing</h2>
                     </div>
-                    <p>
-                        Simple starting rates for commissions.
-                    </p>
                 </div>
 
                 <div class="pricing-toolbar" aria-label="Currency selector">
@@ -1136,9 +1187,6 @@
                         <p>Full loops, larger systems, long-term work.</p>
                     </div>
                 </div>
-                <p class="pricing-note">
-                    Robux estimates use the regular DevEx rate of 0.0038 USD per earned Robux and an approximate 1 EUR = 1.1627 USD exchange rate.
-                </p>
             </section>
 
             <section class="section reveal" id="terms">
@@ -1147,9 +1195,6 @@
                         <div class="eyebrow-subtle">Commission Rules</div>
                         <h2>Terms of Service</h2>
                     </div>
-                    <p>
-                        Short and clear.
-                    </p>
                 </div>
 
                 <div class="terms-grid">
@@ -1181,9 +1226,6 @@
                         <div class="eyebrow-subtle">Questions</div>
                         <h2>FAQ</h2>
                     </div>
-                    <p>
-                        Quick answers before starting a commission.
-                    </p>
                 </div>
 
                 <div class="faq-grid">
@@ -1215,9 +1257,6 @@
                         <div class="eyebrow-subtle">Start a commission</div>
                         <h2>Contact</h2>
                     </div>
-                    <p>
-                        Send scope, budget, deadline, and references.
-                    </p>
                 </div>
 
                 <div class="contact-grid">
@@ -1263,6 +1302,187 @@
 
         document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
 
+        const escapeHtml = (value) => {
+            const div = document.createElement("div");
+            div.textContent = value;
+            return div.innerHTML;
+        };
+
+        const clampStars = (stars) => Math.max(0, Math.min(5, Number(stars) || 0));
+
+        const renderStars = (stars) => {
+            const rating = clampStars(stars);
+            return `${"★".repeat(rating)}${"☆".repeat(5 - rating)}`;
+        };
+
+        const loadReviews = async () => {
+            const grid = document.getElementById("reviewsGrid");
+
+            if (!grid) {
+                return;
+            }
+
+            try {
+                const response = await fetch("reviews.json");
+
+                if (!response.ok) {
+                    throw new Error("reviews.json could not be loaded");
+                }
+
+                const reviews = await response.json();
+                const userIds = [...new Set(reviews.map((review) => String(review.userId)).filter(Boolean))];
+                const avatarEndpoint = new URL("https://thumbnails.roblox.com/v1/users/avatar-headshot");
+
+                avatarEndpoint.searchParams.set("userIds", userIds.join(","));
+                avatarEndpoint.searchParams.set("size", "150x150");
+                avatarEndpoint.searchParams.set("format", "Png");
+                avatarEndpoint.searchParams.set("isCircular", "true");
+
+                const [avatarResponse, ...userResponses] = await Promise.all([
+                    fetch(avatarEndpoint),
+                    ...userIds.map((userId) => fetch(`https://users.roblox.com/v1/users/${userId}`).catch(() => null))
+                ]);
+
+                const avatarPayload = avatarResponse.ok ? await avatarResponse.json() : { data: [] };
+                const avatars = new Map(
+                    avatarPayload.data
+                        .filter((item) => item.state === "Completed" && item.imageUrl)
+                        .map((item) => [String(item.targetId), item.imageUrl])
+                );
+
+                const users = new Map();
+
+                await Promise.all(userResponses.map(async (userResponse, index) => {
+                    const userId = userIds[index];
+
+                    if (!userResponse || !userResponse.ok) {
+                        users.set(userId, `Roblox User ${userId}`);
+                        return;
+                    }
+
+                    const user = await userResponse.json();
+                    users.set(userId, user.name || user.displayName || `Roblox User ${userId}`);
+                }));
+
+                grid.innerHTML = reviews.map((review) => {
+                    const userId = String(review.userId);
+                    const avatar = avatars.get(userId) || "https://www.roblox.com/headshot-thumbnail/image?userId=1&width=150&height=150&format=png";
+                    const name = users.get(userId) || `Roblox User ${userId}`;
+
+                    return `
+                        <article class="review-card glass">
+                            <div class="review-head">
+                                <img class="review-avatar" src="${avatar}" alt="${escapeHtml(name)} Roblox avatar">
+                                <div>
+                                    <h3 class="review-name">${escapeHtml(name)}</h3>
+                                    <div class="review-stars" aria-label="${clampStars(review.stars)} out of 5 stars">${renderStars(review.stars)}</div>
+                                </div>
+                            </div>
+                            <p class="review-text">${escapeHtml(review.text)}</p>
+                        </article>
+                    `;
+                }).join("");
+            } catch (error) {
+                grid.innerHTML = `
+                    <div class="review-card glass">
+                        <p class="review-text">No reviews added yet.</p>
+                    </div>
+                `;
+            }
+        };
+
+        const loadReviewsSafe = async () => {
+            const grid = document.getElementById("reviewsGrid");
+
+            if (!grid) {
+                return;
+            }
+
+            const stars = (value) => {
+                const rating = Math.max(0, Math.min(5, Number(value) || 0));
+                return `${"\u2605".repeat(rating)}${"\u2606".repeat(5 - rating)}`;
+            };
+
+            const render = (reviews, avatars = new Map(), users = new Map()) => {
+                grid.innerHTML = reviews.map((review) => {
+                    const userId = String(review.userId);
+                    const name = users.get(userId) || `Roblox User ${userId}`;
+                    const avatar = avatars.get(userId) || `https://www.roblox.com/headshot-thumbnail/image?userId=${encodeURIComponent(userId)}&width=150&height=150&format=png`;
+
+                    return `
+                        <article class="review-card glass">
+                            <div class="review-head">
+                                <img class="review-avatar" src="${avatar}" alt="${escapeHtml(name)} Roblox avatar">
+                                <div>
+                                    <h3 class="review-name">${escapeHtml(name)}</h3>
+                                    <div class="review-stars" aria-label="${clampStars(review.stars)} out of 5 stars">${stars(review.stars)}</div>
+                                </div>
+                            </div>
+                            <p class="review-text">${escapeHtml(review.text)}</p>
+                        </article>
+                    `;
+                }).join("");
+            };
+
+            try {
+                const response = await fetch("reviews.json");
+
+                if (!response.ok) {
+                    throw new Error("reviews.json could not be loaded");
+                }
+
+                const reviews = await response.json();
+                const userIds = [...new Set(reviews.map((review) => String(review.userId)).filter(Boolean))];
+                const cachedUsersResponse = await fetch("review-users.json").catch(() => null);
+                const cachedUsers = cachedUsersResponse && cachedUsersResponse.ok ? await cachedUsersResponse.json() : {};
+                const cachedNames = new Map();
+                const cachedAvatars = new Map();
+
+                Object.entries(cachedUsers).forEach(([userId, user]) => {
+                    if (user.name) {
+                        cachedNames.set(userId, user.name);
+                    }
+
+                    if (user.avatar) {
+                        cachedAvatars.set(userId, user.avatar);
+                    }
+                });
+
+                render(reviews, cachedAvatars, cachedNames);
+
+                const avatars = new Map(cachedAvatars);
+                const users = new Map(cachedNames);
+                const isLocalPreview = ["127.0.0.1", "localhost"].includes(window.location.hostname);
+                const apiResponse = isLocalPreview
+                    ? await fetch(`http://127.0.0.1:8001/api/roblox-users?ids=${encodeURIComponent(userIds.join(","))}`).catch(() => null)
+                    : null;
+
+                if (apiResponse && apiResponse.ok) {
+                    const payload = await apiResponse.json();
+
+                    Object.entries(payload.users || {}).forEach(([userId, user]) => {
+                        if (user.name) {
+                            users.set(userId, user.name);
+                        }
+
+                        if (user.avatar) {
+                            avatars.set(userId, user.avatar);
+                        }
+                    });
+                }
+
+                render(reviews, avatars, users);
+            } catch (error) {
+                grid.innerHTML = `
+                    <div class="review-card glass">
+                        <p class="review-text">No reviews added yet.</p>
+                    </div>
+                `;
+            }
+        };
+
+        loadReviewsSafe();
+
         document.querySelectorAll(".currency-button").forEach((button) => {
             button.addEventListener("click", () => {
                 const currency = button.dataset.currency;
@@ -1300,6 +1520,6 @@
                 }, 1600);
             });
         });
-    </script>
+</script>
 </body>
 </html>
